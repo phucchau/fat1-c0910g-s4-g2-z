@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h3>
+                    <h:link outcome="accounts" value="Back" styleClass="button"  />
+                </h3>
+                <h:form id="form" enctype="multipart/form-data"> 
+                    <div class="CusdivRegis">
+
+                        <p:panel id="panel" style="border: none;background: transparent;padding: 0px;margin: 0px;border: none;">  
+                            <table style="padding-left: 50px;font-size: 13px;">
+                                <tbody>
+                                    <tr style="padding-top: 5px;">
+                                        <td colspan="3">
+                                            <h3 style="font-size: 15px;">
+                                                Create Account
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            Name Account	
+                                        </td>
+                                        <td>
+                                            <p:inputText id="accountname" value="#{accountsBean.accountName}" >  
+                                                <f:validateLength minimum="2" />  
+                                                <p:ajax update="msgAccount" event="keyup" /> 
+                                            </p:inputText>
+                                        </td>
+                                        <td>
+                                            <p:message for="accountname" id="msgAccount" display="icon"/>    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            Username: *
+                                        </td>
+                                        <td>
+                                            <p:inputText id="username" value="#{accountsBean.username}" required="true" label="Username">  
+                                                <f:validateLength minimum="2" />  
+                                                <p:ajax update="msgusername" event="keyup" /> 
+                                            </p:inputText>  
+                                        </td>
+                                        <td>
+                                            <p:message for="username" id="msgusername" display="icon"/>     
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            Password: *
+                                        </td>
+                                        <td>
+                                            <p:password id="password" value="#{accountsBean.password}" required="true" label="Password" feedback="true" >  
+                                                <f:validateLength minimum="5" />  
+                                                <p:ajax update="msgpassword" event="keyup" /> 
+                                            </p:password>  
+                                        </td>
+                                        <td>
+                                            <p:message for="password" id="msgpassword" display="icon"/>    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            Sex
+                                        </td>
+                                        <td colspan="2">
+                                            <p:selectOneRadio id="options" value="#{accountsBean.sex}">  
+                                                <f:selectItem itemLabel="Male" itemValue="Male" />  
+                                                <f:selectItem itemLabel="Female" itemValue="Female" />  
+                                            </p:selectOneRadio>  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            Email: *
+                                        </td>
+                                        <td>
+                                            <p:inputText id="email" value="#{accountsBean.email}" required="true" label="Email" validatorMessage="#{accountsBean.email} is not valid">  
+                                                <f:validateLength minimum="2" />
+                                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                                <p:ajax update="msgemail" event="keyup" /> 
+                                            </p:inputText>   
+                                        </td>
+                                        <td>
+                                            <p:message for="email" id="msgemail" display="icon"/>     
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone: *</td>
+                                        <td>
+                                            <p:inputText id="phone" value="#{accountsBean.phone}" required="true" label="Phone" converterMessage="Please enter digits only.">  
+                                                <f:validateLength minimum="2" />
+                                                <p:ajax update="msgphone" event="keyup" /> 
+                                            </p:inputText>
+                                        </td>
+                                        <td>
+                                            <p:message for="phone" id="msgphone" display="icon"/>  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Account role
+                                        </td>
+                                        <td colspan="2">
+                                            <p:editor id="accountrole" value="#{accountsBean.accountrole}" width="600"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Address
+                                        </td>
+                                        <td colspan="2">
+                                            <p:editor id="address" value="#{accountsBean.address}" width="600"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="2">
+                                            <p:commandButton value="Reset" type="reset" />  
+                                            <p:commandButton  value="Save" update="panel" actionListener="#{accountsBean.createAccountType()}" />  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <p:messages id="msgs"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </p:panel>
+                    </div>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
