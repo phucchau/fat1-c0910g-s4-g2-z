@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <div id="search">
+        <h:form>
+            <h3 class="title" style="font-size: 20px;text-align: left;padding: 0px;margin: 0px;">Search</h3>
+            <p class="separator"/>
+            <p:selectOneMenu value="#{searchBean.choosetype}" effect="fade" required="true" style="width:292px;margin-bottom: 5px;">  
+                <f:selectItem itemLabel="Choose" itemValue="none" /> 
+                <f:selectItem itemLabel="Lands" itemValue="Lands" /> 
+                <f:selectItem itemLabel="Buildings" itemValue="Buildings" /> 
+                <f:selectItem itemLabel="Rooms" itemValue="Rooms" /> 
+            </p:selectOneMenu> 
+            <p:selectOneMenu value="#{searchBean.choosemoney}" effect="fade" required="true" style="width:292px;margin-bottom: 5px;">  
+                <f:selectItem itemLabel="Choose money" itemValue="none" /> 
+                <f:selectItem itemLabel="20 mil - 100 mil" itemValue="20000000-100000000" /> 
+                <f:selectItem itemLabel="100 mil - 500 mil" itemValue="100000000-500000000" /> 
+                <f:selectItem itemLabel="500 bil - 1,2 bil" itemValue="500000000-1200000000" /> 
+                <f:selectItem itemLabel="1,2 bil - 2 bil" itemValue="1200000000-2000000000" /> 
+                <f:selectItem itemLabel="2 bil - 3 bil" itemValue="2000000000-3000000000" /> 
+                <f:selectItem itemLabel="3 bil - 5 bil" itemValue="3000000000-5000000000" /> 
+                <f:selectItem itemLabel="> 5 bil" itemValue="5000000000" />      
+            </p:selectOneMenu> 
+            <p:inputText style="padding: 2px;width: 200px;margin-bottom: 2px;height: 20px;" value="#{searchBean.ipname}"/>
+            <div style="clear: both;"/>
+            <h:commandButton value="Search" styleClass="button" action="#{beanIndex.goSearch()}"/>
+        </h:form>
+    </div>
+    <div class="space"/>
+    <div id="contact">
+        <h3 class="title" style="font-size: 20px;text-align: left;padding: 0px;margin: 0px;">Contact</h3>
+        <p class="separator"/>
+        <table width="100%" border="0" style="font-family: Bebas, Arial, sans-serif;	
+               font-size: 12px;
+               text-shadow:1px 1px 1px #fff;
+               font-family: Arial;">
+            <tbody>
+                <tr style="color: #19707C; font-weight:bold;">
+                    <td>Ms. Dung: </td>
+                    <td><a href="ymsgr:sendim?iubaxanhatnha&amp;m=Xin chào P. Kinh Doanh TDH" border="0"><img src="http://opi.yahoo.com/online?u=iubaxanhatnha&amp;m=g&amp;t=1&amp;l=us" style="border: none;"/></a></td>
+                    <td>(0)985332269</td>
+                </tr>
+                <tr>
+                    <td valign="middle"><b>Mr. Du: </b></td>
+                    <td><a href="ymsgr:sendim?iubaxanhatnha&amp;m=Xin chào P. Kinh Doanh TDH" border="0"><img src="http://opi.yahoo.com/online?u=iubaxanhatnha&amp;m=g&amp;t=1&amp;l=us" style="border: none;"/></a></td>
+                    <td>(0)1678230565</td>
+                </tr>
+                <tr>
+                    <td valign="middle"><b>Ms. Xuân Anh: </b></td>
+                    <td><a href="ymsgr:sendim?iubaxanhatnha&amp;m=Xin chào P. Kinh Doanh TDH" border="0"><img src="http://opi.yahoo.com/online?u=iubaxanhatnha&amp;m=g&amp;t=1&amp;l=us" style="border: none;"/></a></td>
+                    <td>(0)972231191</td>
+                </tr>
+                <tr>
+                    <td valign="middle"><b>Mr. Đức: </b></td>
+                    <td><a href="ymsgr:sendim?iubaxanhatnha&amp;m=Xin chào P. Kinh Doanh TDH" border="0"><img src="http://opi.yahoo.com/online?u=iubaxanhatnha&amp;m=g&amp;t=1&amp;l=us" style="border: none;"/></a></td>
+                    <td>(0)97723261</td>
+                </tr>
+                <tr>
+                    <td valign="middle"><b>Mr. Trường: </b></td>
+                    <td><a href="ymsgr:sendim?iubaxanhatnha&amp;m=Xin chào P. Kinh Doanh TDH" border="0"><img src="http://opi.yahoo.com/online?u=iubaxanhatnha&amp;m=g&amp;t=1&amp;l=us" style="border: none;"/></a></td>
+                    <td>(0)98349141</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="recent">
+        <h3 class="title" style="font-size: 20px;text-align: left;padding: 0px;margin: 0px;">Recents</h3>
+        <p class="separator"/>
+        <h:form>
+            <p:tabView effect="fade" effectDuration="normal">  
+                <p:tab title="Lands">  
+                    <p:dataGrid value="#{landsBean.allLandsDESC}" var="land"  paginator="true" rows="5" columns="1" paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" pageLinks="3">  
+                        <p:column>  
+                            + <h:commandLink action="#{landsBean.goLand()}"  style="color: black;">#{land.landName}
+                                <f:param name="idLand" value="#{land.landId}" />
+                            </h:commandLink>
+                        </p:column>
+                    </p:dataGrid> 
+                </p:tab>  
+                <p:tab title="Buildings">  
+                    <p:dataGrid value="#{buildingsBean.allBuildingsDESC}" var="build" paginator="true" rows="5" columns="1" paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" pageLinks="3">
+                        <p:column> 
+                            + <h:commandLink action="#{buildingsBean.goBuilding()}" style="color: black;">(#{build.landId.landName}) #{build.buildingName}
+                                <f:param name="idBuilding" value="#{build.buildingId}" />
+                            </h:commandLink>
+                        </p:column>
+                    </p:dataGrid> 
+                </p:tab>  
+                <p:tab title="Rooms">  
+                    <p:dataGrid value="#{roomsBean.allRoomsDESC}" var="room" paginator="true" rows="5" columns="1" paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" pageLinks="3">  
+                        <p:column> 
+                            + <h:commandLink action="#{roomsBean.goRoom()}" style="color: black;">(#{room.buildingId.buildingName}) Room No : #{room.roomNo}
+                                <f:param name="idRoom" value="#{room.roomId}" />
+                            </h:commandLink>
+                        </p:column>
+                    </p:dataGrid> 
+                </p:tab>  
+
+            </p:tabView>  
+        </h:form>
+        <div style="width: 100%;height: 15px;"/>
+    </div>
+</html>
