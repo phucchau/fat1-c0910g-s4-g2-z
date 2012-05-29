@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:form>
+        <div id="top-header" class="wrap"> 
+            <h:commandLink action="#{beanIndex.goIndex()}">
+                <h:graphicImage url="Resource/image/Icon.png" style="border: none;background: transparent;"/>
+            </h:commandLink>
+            <ul id="navigation">
+                <li>
+                    <h:commandLink action="#{beanIndex.goIndex()}" styleClass="active-nav">Home</h:commandLink>
+                </li>
+
+                <li>
+                    <h:commandLink action="#{beanIndex.goIndex()}">About us</h:commandLink>
+                </li>
+
+                <li>
+                    <h:commandLink action="#{beanIndex.goContact()}">Contact</h:commandLink>
+                </li>
+            </ul>
+        </div>
+        <div id="top-midder">
+            <div id="slides" class="full-width">
+                <div id="slider-top-level">
+                    <div class="slides_container">
+                        <h:commandLink action="#{beanIndex.goIndex()}">
+                            <h:graphicImage url="Resource/image/slides/slider1.jpg" alt="slider 1" title="Slider 1"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{beanIndex.goIndex()}">
+                            <h:graphicImage url="Resource/image/slides/slider2.jpg" alt="slider 2" title="Slider 2"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{beanIndex.goIndex()}">
+                            <h:graphicImage url="Resource/image/slides/slider3.jpg" alt="slider 3" title="Slider 3"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{beanIndex.goIndex()}">
+                            <h:graphicImage url="Resource/image/slides/slider4.jpg" alt="slider 4" title="Slider 4"/>
+                        </h:commandLink>
+                        <h:commandLink action="#{beanIndex.goIndex()}">
+                            <h:graphicImage url="Resource/image/slides/slider5.jpg" alt="slider 5" title="Slider 5"/>
+                        </h:commandLink>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</html>
+

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <div id="queryandcss">
+            <ui:insert name="queryandcss">
+                <link href="./Resource/css/cssTemplate.css" rel="stylesheet" type="text/css" />
+                <link href="./Resource/css/slides.css" rel="stylesheet" type="text/css" />
+                <link href="./Resource/css/lightbox.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="./Resource/js/slides.jquery.js" />
+                <script type="text/javascript" src="./Resource/js/lightbox.js" />
+            </ui:insert>
+        </div>
+        <script>
+             jQuery(function($){
+                 $('#slides').slides({
+                     preload: true,
+                     play: 3500,
+                     pause: 2500,
+                     hoverPause: true,
+                     generateNextPrev:false
+                  });
+             });
+        </script>	
+        <title>NTB Templates</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+                <ui:include src="top.xhtml" />
+            </ui:insert>
+        </div>
+
+        <div id="content" class="wrap">
+            <div id="top-content">
+                <h3>Welecome to NTB Stamp Duty and Registration Details</h3>
+            </div>
+            <div id="contentleft">
+                <ui:insert name="content-left">
+                    <ui:include src="top.xhtml" />
+                </ui:insert>
+            </div>
+            <div id="contentright">
+                <ui:insert name="content-right">
+                    <ui:include src="contentright.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="wrap">
+                <div class="copyright">
+                    Copyright © 2012 <a href="#">Group2-Z</a>. All Rights Reserved
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+
+</html>
