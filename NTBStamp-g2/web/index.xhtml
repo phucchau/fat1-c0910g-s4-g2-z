@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./Home/Template.xhtml">
+
+            <ui:define name="queryandcss">
+                <link href="./Home/Resource/css/cssTemplate.css" rel="stylesheet" type="text/css" />
+                <link href="./Home/Resource/css/slides.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="./Home/Resource/js/slides.jquery.js" />
+            </ui:define>
+
+            <ui:define name="top">
+                <div id="top-header" class="wrap"> 
+                    <h:form>
+                        <h:commandLink action="#{beanIndex.goIndex()}">
+                            <h:graphicImage url="Home/Resource/image/Icon.png" style="border: none;background: transparent;"/>
+                        </h:commandLink>
+                        <ul id="navigation">
+
+                            <li>
+                                <h:commandLink action="#{beanIndex.goIndex()}" styleClass="active-nav">Home</h:commandLink>
+                            </li>
+
+                            <li>
+                                <h:commandLink action="#{beanIndex.goIndex()}">About us</h:commandLink>
+                            </li>
+
+                            <li>
+                                <h:commandLink action="#{beanIndex.goContact()}">Contact</h:commandLink>
+                            </li>
+                        </ul>
+                    </h:form>
+                </div>
+                <div id="top-midder">
+                    <div id="slides" class="full-width">
+                        <div id="slider-top-level">
+                            <div class="slides_container">
+                                <h:link outcome="index">
+                                    <h:graphicImage url="Home/Resource/image/slides/slider1.jpg" alt="slider 1" title="Slider 1"/>
+                                </h:link>
+                                <h:link outcome="index">
+                                    <h:graphicImage url="Home/Resource/image/slides/slider2.jpg" alt="slider 2" title="Slider 2"/>
+                                </h:link>
+                                <h:link outcome="index">
+                                    <h:graphicImage url="Home/Resource/image/slides/slider3.jpg" alt="slider 3" title="Slider 3"/>
+                                </h:link>
+                                <h:link outcome="index">
+                                    <h:graphicImage url="Home/Resource/image/slides/slider4.jpg" alt="slider 4" title="Slider 4"/>
+                                </h:link>
+                                <h:link outcome="index">
+                                    <h:graphicImage url="Home/Resource/image/slides/slider5.jpg" alt="slider 5" title="Slider 5"/>
+                                </h:link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="content-left">
+                <h:form>
+                    <p:dataGrid value="#{landsBean.allLandsDESC}" var="item"
+                                paginator="true" rows="6" columns="2" 
+                                paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"  
+                                rowsPerPageTemplate="6,12,18" 
+                                paginatorPosition="bottom"
+                                pageLinks="5">  
+                        <p:column>  
+                            <div class="item-content-left">
+                                <h:commandLink action="#{landsBean.goLand()}" style="text-decoration: none;">
+                                    <h3 class="title">
+                                        <h:outputText value="#{item.landName} " escape="false"/>
+                                        <h:outputText value="#{item.landTypeID.landName}" escape="false" style="color: red;font-size: 12px;"/>
+                                    </h3>
+                                    <h:graphicImage url="Home/Resource/image/600px-No_image_available.svg.png" styleClass="image" rendered="#{empty item.image}"/>
+                                    <h:graphicImage url="ImageUser/#{item.image}" styleClass="image" rendered="#{not empty item.image}"/>
+                                    <f:param name="idLand" value="#{item.landId}" />
+                                    <p class="description" style="color: black;"><h:outputText value="#{item.subDescription}" rendered="#{not empty item.description}" escape="false"/></p>
+                                    <p class="readmore">Read More</p>
+                                </h:commandLink>
+
+                            </div>
+                        </p:column>  
+                    </p:dataGrid> 
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
