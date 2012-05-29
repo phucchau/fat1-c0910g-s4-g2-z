@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      >
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Management Room</h1>
+                <br/>
+                 
+               <table width="730" height="435" border="0">
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th align="left" scope="col">
+                                Search by RoomNo:
+                                <label>
+                                    <h:inputText value="${roomBean.search}"/>
+                                </label>
+                                <label>
+                                    <input type="submit" name="Submit" value="Search" />
+                                   
+                                </label>
+                            </th>
+                            <th height="34" scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th width="10" scope="col">&nbsp;</th>
+                            <th width="542" align="left" scope="col">
+                                <h:commandButton value="Add New" action="${roomBean.addRooms}" image="../images/add.png"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Room Type:
+                                  <h:selectOneMenu value="#{roomBean.selectRoomType}">
+                                        <f:selectItems value="#{roomBean.listItRoomType}"/>
+                                    </h:selectOneMenu>
+                            </th>
+                            <th width="51" height="23" scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">&nbsp;</th>
+                            <th scope="row" align="center" valign="top">
+
+                                <table border ="1">
+                                    <th></th>
+                                    <th>Room ID</th>
+                                    <th>Room No</th>
+                                    <th>Building Name</th>
+                                    <th>Total Square</th>
+                                    <th>Total Price</th>
+                                    <th>Type Room</th>
+                                    <th>Status</th>
+                                    <th></th>
+
+
+
+                                    <c:forEach items="${roomBean.listRoomSearch}" var="item">  
+                                        <tr>
+
+
+                                            <td>
+                                                <a href="updateRoom.xhtml?IdR=${item.roomID}">
+                                                Payments
+                                               
+                                             </a>
+                                            </td>
+                                             
+                                            <td>${item.roomID}</td>
+                                               <td>${item.roomNo}</td>
+                                            <td>${item.buildingName}</td>
+                                         
+                                            <td>${item.totalSquare}(m&sup2;)</td>
+                                            <td>${item.totalPrice}($)</td>
+                                            <td>${item.typeRoom}</td>
+                                            <td>${item.status}</td>
+                                            
+                                            
+                                            <td>
+                                                <a href="updateRoom.xhtml?IdR=${item.roomID}"><img src="../images/update.png" alt="" width="16" height="16" /></a>
+                                                <a href="removeRoom.xhtml?IdR=${item.roomID}"><img src="../images/delete.png" alt="" width="16" height="16" /></a>
+                                             </td>
+
+
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+
+                            </th>
+                            <th height="267" scope="row">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">&nbsp;</th>
+                            <th scope="row">&nbsp;</th>
+                            <th height="101" scope="row">&nbsp;</th>
+                        </tr>
+                    </table>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

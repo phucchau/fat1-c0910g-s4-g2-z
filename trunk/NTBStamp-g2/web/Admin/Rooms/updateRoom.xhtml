@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <table width="692" height="320" border="0">
+                  <tr>
+                    <th width="112" scope="col">&nbsp;</th>
+                    <th width="458" align="left" scope="col">&nbsp;</th>
+                    <th width="100" height="34" scope="col">&nbsp;</th>
+                  </tr>
+                  <tr>
+                    <th scope="row">&nbsp;</th>
+                    <th scope="row">
+                        <table width="289" border="1" bgcolor="#6FB2E6">
+                          <tr>
+                            <th colspan="2" scope="col"><span class="style1">Update Room</span></th>
+                          </tr>
+                          <tr>
+                            <th width="102" scope="row">Room ID: </th>
+                            <td width="150" align="left"><label>
+                                    <h:inputHidden value="${roomBean.roomID}"  />
+                                    <h:inputText value="${roomBean.roomID}" style="width:70px" disabled="true"/>
+                            </label></td>
+                          </tr>
+                          
+                          <tr>
+                            <th scope="row">Room No:</th>
+                            <td align="left"><label>
+                                    <h:inputText value="${roomBean.roomNo}" style="width:70px" disabled="true"/>
+                            </label></td>
+                          </tr>
+                            
+                          <tr>
+                              
+                          <th scope="row">Room Type:</th>
+                            <td align="left"><label>
+                                    <h:selectOneMenu value="#{roomBean.selectRoomType}">
+                                        <f:selectItems value="#{roomBean.listItemRoomType}"/>
+                                    </h:selectOneMenu>
+                          </label></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Square:</th>
+                            <td align="left"><label>
+                                    <h:inputText value="${roomBean.square}" style="width:70px"/>(m&sup2;)
+                            </label></td>
+                          </tr>
+
+                          <tr>
+                            <th colspan="2" scope="row"><label>
+                                    <h:commandButton value="Create" action="${roomBean.updateRoom}"/>
+                              <input type="submit" name="Submit2" value="Cancel" />
+                            </label></th>
+                          </tr>
+                        </table>
+                   </th>
+                    <th height="173" scope="row">&nbsp;</th>
+                  </tr>
+                  <tr>
+                    <th scope="row">&nbsp;</th>
+                    <th scope="row">&nbsp;</th>
+                    <th height="101" scope="row">&nbsp;</th>
+                  </tr>
+                </table>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
