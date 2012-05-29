@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Admin</title>
+        <ui:insert name="queryandcss">
+            <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" title="default" />
+            <script src="js/jquery/jquery-1.4.1.min.js" type="text/javascript"></script>
+        </ui:insert>
+        
+    </h:head>
+
+    <h:body>
+        <!-- Start: page-top-outer -->
+        <div id="page-top-outer">    
+
+            <!-- Start: page-top -->
+            <div id="page-top">
+
+                <!-- start logo -->
+                <div id="logo">
+                    <a href="">
+                        <h:graphicImage url="/Admin/images/logo/Icon.png" />
+                    </a>
+                </div>
+                <!-- end logo -->
+
+                <!--  start top-search -->
+                <div id="top-search">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><input type="text" value="Search" onblur="if (this.value=='') { this.value='Search'; }" onfocus="if (this.value=='Search') { this.value=''; }" class="top-search-inp" /></td>
+                            <td>
+
+                                <select  class="styledselect">
+                                    <option value="">All</option>
+                                    <option value="">Products</option>
+                                    <option value="">Categories</option>
+                                    <option value="">Clients</option>
+                                    <option value="">News</option>
+                                </select> 
+
+                            </td>
+                            <td>
+                                <input type="image" src="images/shared/top_search_btn.gif"  />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--  end top-search -->
+                <div class="clear"></div>
+
+            </div>
+            <!-- End: page-top -->
+
+        </div>
+        <!-- End: page-top-outer -->
+
+        <div class="clear">&nbsp;</div>
+
+        <!--  start nav-outer-repeat................................................................................................. START -->
+        <div class="nav-outer-repeat"> 
+            <!--  start nav-outer -->
+            <div class="nav-outer"> 
+
+                <!-- start nav-right -->
+                <div id="nav-right">
+
+                    <div class="nav-divider">&nbsp;</div>
+                    <div class="showhide-account"><img src="images/shared/nav/nav_myaccount.gif" width="93" height="14" alt="" /></div>
+                    <div class="nav-divider">&nbsp;</div>
+                    <a href="" id="logout"><img src="images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
+                    <div class="clear">&nbsp;</div>
+
+                    <!--  start account-content -->	
+                    <div class="account-content">
+                        <div class="account-drop-inner">
+                            <a href="" id="acc-settings">Settings</a>
+                            <div class="clear">&nbsp;</div>
+                            <div class="acc-line">&nbsp;</div>
+                            <a href="" id="acc-details">Personal details </a>
+                            <div class="clear">&nbsp;</div>
+                            <div class="acc-line">&nbsp;</div>
+                            <a href="" id="acc-project">Project details</a>
+                            <div class="clear">&nbsp;</div>
+                            <div class="acc-line">&nbsp;</div>
+                            <a href="" id="acc-inbox">Inbox</a>
+                            <div class="clear">&nbsp;</div>
+                            <div class="acc-line">&nbsp;</div>
+                            <a href="" id="acc-stats">Statistics</a> 
+                        </div>
+                    </div>
+                    <!--  end account-content -->
+
+                </div>
+                <!-- end nav-right -->
+
+
+                <!--  start nav -->
+                <div class="nav">
+                    <div class="table">
+
+                        <!--<ul  class="current"> -->
+                        <ul  class="select">
+                            <li>
+                                <h:link outcome="/Admin/admin"><b>Welcome</b></h:link>
+                            </li>
+                        </ul>
+
+                        <div class="nav-divider">&nbsp;</div>
+
+                        <ul class="select">
+                            <li>
+                                <h:link outcome="/Admin/Lands/lands"><b>Lands</b></h:link>
+                            </li>
+                        </ul>
+                        
+                        <div class="nav-divider">&nbsp;</div>
+
+                        <ul class="select">
+                            
+                            <li>
+                                <h:link outcome="/Admin/Buildings/buildings"><b>Buildings</b></h:link>
+                            </li>
+                        </ul>
+                        
+                        <div class="nav-divider">&nbsp;</div>
+
+                        <ul class="select">
+                            
+                            <li>
+                                <h:link outcome="/Admin/Rooms/rooms"><b>Rooms</b></h:link>
+                            </li>
+                        </ul>
+                        
+                        <div class="nav-divider">&nbsp;</div>
+
+                        <ul class="select">
+                            
+                            <li>
+                                <h:link outcome="/Admin/RoomType/roomtype"><b>RoomType</b></h:link>
+                            </li>
+                        </ul>
+
+                        <div class="nav-divider">&nbsp;</div>
+
+                        <ul class="select">
+                            <li>
+                                <h:link outcome="/Admin/LandType/landType"><b>Land Type</b></h:link>
+                            </li>
+                        </ul>
+
+                        <div class="nav-divider">&nbsp;</div>
+                        <ul class="select">
+                            <li>
+                                <h:link outcome="/Admin/ChargeType/chargetype"><b>Charge Type</b></h:link>
+                            </li>
+                        </ul>
+                        
+                        <div class="nav-divider">&nbsp;</div>
+                        <ul class="select">
+                            <li>
+                                <h:link outcome="/Admin/Customers/customers"><b>Customer</b></h:link>
+                            </li>
+                        </ul>
+                        
+                        <div class="nav-divider">&nbsp;</div>
+                        <ul class="select">
+                            <li>
+                                <h:link outcome="/Admin/Accounts/accounts"><b>Accounts</b></h:link>
+                            </li>
+                        </ul>
+                        
+                        <div class="nav-divider">&nbsp;</div>
+
+                        <ul class="select">
+                            <li><a href="#nogo"><b>Payments</b></a>
+                            </li>
+                        </ul>
+                        
+                        
+
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--  start nav -->
+
+            </div>
+            <div class="clear"></div>
+            <!--  start nav-outer -->
+        </div>
+        <!--  start nav-outer-repeat................................................... END -->
+
+        <div class="clear"></div>
+
+        <!-- start content-outer -->
+        <div id="content-outer">
+            <!-- start content -->
+            <div id="content">
+                <ui:insert name="content">Content</ui:insert>
+                <div class="clear">&nbsp;</div>
+            </div>
+            <!--  end content -->
+            <div class="clear">&nbsp;</div>
+        </div>
+        <!--  end content-outer -->
+        <div class="clear">&nbsp;</div>
+
+        <!-- start footer -->         
+        <div id="footer">
+            <!--  start footer-left -->
+            <div id="footer-left">
+                Group 2 - C0910G - Fat 1
+            </div>
+            <!--  end footer-left -->
+            <div class="clear">&nbsp;</div>
+        </div>
+        <!-- end footer -->
+
+
+
+    </h:body>
+
+</html>
