@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+            <ui:define name="content-left">
+                <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 2px;">
+                    <h:outputText value="Room No : #{roomsBean.r.roomNo} " escape="false"/>
+                    <h:outputText value="#{roomsBean.r.typeId.typeName}" escape="false" style="color: red;font-size: 12px;"/>
+                </h3>
+                <p class="separator"/>
+                <table style="width: 640px;font-size: 14px;text-align: left;" class="title">
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align: top;width: 245px;height: 120px;">
+                                <a href="../ImageUser/#{roomsBean.r.image}" rel="lightbox" title="Room No : #{roomsBean.r.roomNo}">
+                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{empty roomsBean.r.image}"/>
+                                    <h:graphicImage url="../ImageUser/#{roomsBean.r.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{not empty roomsBean.r.image}"/>
+                                </a>
+                            </td>
+                            <td rowspan="3">
+
+                                <h:form id="form" >
+                                    <p:panel id="panel" style="background: transparent;padding: 0px;margin: 0px;border: none;" rendered="#{not empty roomsBean.r}">  
+                                        <div class="CusdivRegis">
+                                            <table style="padding-left: 15px;font-size: 13px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <h3 style="font-size: 15px;">
+                                                                Register Room
+                                                            </h3>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Name 
+                                                        </td>
+                                                        <td>
+                                                            <p:inputText id="name" value="#{roomsBean.cusname}" size="30" required="true">
+                                                                <f:validateLength minimum="2" />  
+                                                                <p:ajax update="msgname" event="keyup" /> 
+                                                            </p:inputText>  
+                                                        </td>
+                                                        <td>
+                                                            <p:message for="name" id="msgname" display="icon"/>  
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Sex 
+                                                        </td>
+                                                        <td colspan="2">
+                                                            <p:selectOneRadio id="options" value="#{roomsBean.sex}">  
+                                                                <f:selectItem itemLabel="Male" itemValue="Male" />  
+                                                                <f:selectItem itemLabel="Female" itemValue="Female" />  
+                                                            </p:selectOneRadio>  
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Address 
+                                                        </td>
+                                                        <td>
+                                                            <p:inputText id="address" value="#{roomsBean.address}" size="30" required="true">
+                                                                <f:validateLength minimum="2" />  
+                                                                <p:ajax update="msgaddress" event="keyup" /> 
+                                                            </p:inputText>            
+                                                        </td>
+                                                        <td>
+                                                            <p:message for="address" id="msgaddress" display="icon"/> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Phone 
+                                                        </td>
+                                                        <td>
+                                                            <p:inputText id="phone" value="#{roomsBean.phone}" size="30" maxlength="15" required="true">
+                                                                <f:validateLength minimum="2" />  
+                                                                <p:ajax update="msgphone" event="keyup" /> 
+                                                            </p:inputText>  
+                                                        </td>
+                                                        <td>
+                                                            <p:message for="phone" id="msgphone" display="icon"/> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Email 
+                                                        </td>
+                                                        <td>
+                                                            <p:inputText id="email" value="#{roomsBean.email}" size="30" required="true" validatorMessage="Email is not valid">
+                                                                <f:validateLength minimum="2" />  
+                                                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                                                <p:ajax update="msgemail" event="keyup" /> 
+                                                            </p:inputText>  
+                                                        </td>
+                                                        <td>
+                                                            <p:message for="email" id="msgemail" display="icon"/> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+
+                                                        </td>
+                                                        <td colspan="2">
+                                                            <p:commandButton styleClass="button" value="Register" update="panel" actionListener="#{roomsBean.registerCus}"/> 
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3" style="font-size: 12px;">
+                                                            <p:messages id="msgs"/> 
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </p:panel>  
+                                </h:form>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;height: 15px;">Total Square : <h:outputText value="#{roomsBean.r.totalSquare}" style="color: #424242;font-size: 12px;" rendered="#{not empty roomsBean.r.totalSquare}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Total Price : <h:outputText value="#{roomsBean.r.totalPrice}" style="color: #424242;font-size: 12px;" rendered="#{not empty roomsBean.r.totalPrice}">
+                                    <f:convertNumber currencyCode="USD" type="currency" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Description
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:outputText value="#{roomsBean.r.description}" style="color: #424242;font-size: 12px;" escape="false" rendered="#{not empty roomsBean.r.description}"></h:outputText>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
