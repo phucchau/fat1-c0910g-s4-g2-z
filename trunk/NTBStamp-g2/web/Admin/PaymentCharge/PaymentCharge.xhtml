@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Management PaymentCharge</h1>
+                <br/>
+                 
+                <h:form id="form">  
+                    <h2> <h:link outcome="CreatePaymentCharge" styleClass="button" value="Create PaymentCharge" /></h2>
+                    <br/>
+
+                    <p:growl id="msgs" showDetail="true" />  
+
+                    <p:dataTable id="cha" var="PaymentCharge" value="#{paymentChargeBean.listPaymentCharge}" tableStyle="width:auto">  
+
+                        <p:column headerText="ID" style="width:100px">  
+                            <h:outputText value="#{paymentChargeBean.payChargeID}" />  
+                        </p:column>  
+
+                        <p:column headerText="Name Charge" style="width:200px">  
+                            <h:outputText value="#{paymentChargeBean.chargeName}" />  
+                        </p:column>  
+                        
+                        <p:column headerText="Interest" style="width:200px">  
+                            <h:outputText value="#{paymentChargeBean.interest}" />  
+                        </p:column>
+                        
+                        <p:column headerText="ChargeTime" style="width:200px">  
+                            <h:outputText value="#{paymentChargeBean.month}" />  
+                        </p:column>
+
+                        <p:column style="width:200px">  
+
+                            <h:column id="actions" headerClass="headertext">
+                                <f:facet name="header">
+                                </f:facet>
+                                <p:commandButton  value="Edit" immediate="true" action="#{paymentChargeBean.findPaymentCharge(paymentChargeBean.payChargeID)}"  />  
+                                <p:commandButton  onclick="return confirm('Are you sure you want to delete?')"  value="delete" action="#{paymentChargeBean.deletePaymentCharge(paymentChargeBean.payChargeID)}" />  
+
+                            </h:column>
+                        </p:column>  
+
+                    </p:dataTable>  
+
+                </h:form> 
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
