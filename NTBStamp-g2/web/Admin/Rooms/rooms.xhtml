@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Management Room</h1>
+                <br/>
+                 
+                <h:form id="form">  
+                    <h2> <h:link outcome="CreateRoom" styleClass="button" value="Create Room" /></h2>
+                    <br/>
+
+                    <p:growl id="msgs" showDetail="true" />  
+
+                    <table width="730" height="435" border="0">
+                        <tr>
+                            <th scope="col">&nbsp;</th>
+                            <th align="left" scope="col">
+                                Search by RoomNo:
+                                <label>
+                                    <h:inputText value="${roomsBean.search}"/>
+                                </label>
+                                <label>
+                                    <h:commandButton value="Search" action="${roomsBean.mapRooms}"/>
+                                   
+                                </label>
+                            </th>
+                            <th height="34" scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th width="10" scope="col">&nbsp;</th>
+                            <th width="542" align="left" scope="col">
+                                <h:commandButton value="Add New" action="${roomsBean.addRooms}" image="../images/add.png"/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Room Type:
+                                
+                                <h:selectOneMenu value="#{roomsBean.selectRoomType}">
+                                        <f:selectItems value="#{roomsBean.listItRoomType}"/>
+                                    </h:selectOneMenu>
+                                <h:commandButton image="../images/refresh.png" action="${roomsBean.mapRooms}" />
+                            </th>
+                            <th width="51" height="23" scope="col">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">&nbsp;</th>
+                            <th scope="row" align="center" valign="top">
+ <p:dataTable value="#{roomsBean.listRoom}" var="item" paginator="true" rows="10"  
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15" >
+                                    <p:column style="width: 10px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="Detail" style="font-size:9px"/>
+                                        </f:facet>                                        
+                                        <h:commandButton  action="${roomsBean.mappingRoomDetail(item.roomID)}" image="../images/details.png"/>
+                                    </p:column>
+                                     <p:column style="width: 10px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="ID" style="font-size:9px"/>
+                                        </f:facet>
+                                         <h:outputText value="#{item.roomID}" style="font-size:11px"/>
+                                    </p:column>
+                                    <p:column style="width: 10px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="RoomNo" style="font-size:9px"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.roomNo}" style="font-size:11px"/>
+                                    </p:column>
+                                    <p:column style="width: 10px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="Building" style="font-size:9px"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.buildingName}" style="font-size:11px"/>
+                                    </p:column>
+                                    <p:column style="width: 10px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="Square" style="font-size:9px"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.totalSquare}(m&sup2;)" style="font-size:11px"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Price" style="font-size:9px"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.totalPrice}($)" style="font-size:11px"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Type" style="font-size:9px"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.typeRoom}" style="font-size:11px"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Status" style="font-size:9px"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.status}" style="font-size:11px"/>
+                                    </p:column>
+                                    <p:column style="width: 10px;">
+                                        <f:facet name="header">
+                                            <h:outputText value="Payment" style="width:5px;font-size:9px" />
+                                        </f:facet>
+                                       
+                                        <h:commandButton  action="${roomsBean.mappingPayment(item.roomID)}" image="../images/payment.png"/>
+                                    </p:column> 
+                                     <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="" style="font-size:10px"/>
+                                        </f:facet>
+                                          <a href="updateRoom.xhtml?IdR=#{item.roomID}"><img src="../images/update.png" alt="" width="16" height="16" /></a>
+                                          <a href="removeRoom.xhtml?IdR=#{item.roomID}"><img src="../images/delete.png" alt="" width="16" height="16" /></a>
+                                    </p:column>
+                                </p:dataTable>  
+                            </th>
+                            <th height="267" scope="row">&nbsp;</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">&nbsp;</th>
+                            <th scope="row">&nbsp;</th>
+                            <th height="101" scope="row">&nbsp;</th>
+                        </tr>
+                    </table>
+
+                </h:form> 
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
