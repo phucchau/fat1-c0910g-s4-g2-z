@@ -1,0 +1,141 @@
+#slides {
+    float:right;
+    position:relative;
+    top:25px;
+    left:4px;
+    z-index:100;
+    margin-right:5px;
+}
+
+.slides_container {
+    width:570px;
+	height:auto;
+    overflow:hidden;
+    position:relative;
+    display:none;
+}
+
+.slides_container a {
+    width:445px;
+    height:289px;
+    display:block;
+}
+
+.full-width .slides_container a {
+	width:940px;
+	height:300px;
+}
+
+.slides_container a img {
+    display:block;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:5px;
+}
+
+#slides .next,#slides .prev {
+    position:absolute;
+    top:107px;
+    left:-39px;
+    width:24px;
+    height:43px;
+    display:block;
+    z-index:101;
+}
+
+#slides .next {
+    left:585px;
+}
+
+.pagination {
+    margin:0px auto 0;
+    width:auto;
+    float:left;
+    padding:10px;
+    margin-left:25%;
+}
+
+.pagination li {
+    float:left;
+    margin:0 1px;
+    list-style:none;
+}
+
+.pagination li a {
+    background-color:#3C3C3C;
+    color:#006F6B;
+    -moz-box-shadow: 0 -1px 0 #555 inset, 1px 1px 1px #222222 inset;
+    -webkit-box-shadow: 0 -1px 0 #555 inset, 1px 1px 1px #222222 inset;
+    box-shadow: 0 -1px 0 #555 inset, 1px 1px 1px #222222 inset;
+    margin: 5px;
+    height:25px;
+    width:25px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius:15px;
+    font-size:0px;
+    display: block;
+    width: 25px;
+    height: 0;
+    padding-top: 25px;
+    float: left;
+    overflow: hidden;
+}
+
+.pagination li a:hover {
+    background-color: #333;
+    color:#333;
+}
+
+.pagination li.current a {
+    background-color: #016662;
+    color:#016662;
+}
+
+/* user specific */
+ul.pagination {
+    overflow:hidden;
+}
+
+.slides_container {
+    padding:10px;
+    width:445px;
+}
+
+.nav-slider-wrapper {
+    overflow:hidden;
+    background:url("../image/slidershadow.png") no-repeat scroll top center transparent;
+    width:100%;
+}
+
+#slider-top-level {
+	overflow:hidden;
+    background-color: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:5px;
+    -moz-box-shadow: -1px -2px 15px #555;
+    -webkit-box-shadow: -1px -2px 15px #555;
+    box-shadow: -1px -2px 15px #555;
+}
+
+.full-width .slides_container {
+    display:inline;
+    margin:0px auto;
+	width:100%;
+	height:300px;
+}
+
+#slides.full-width {
+    float:none;
+}
+
+.full-width .pagination {
+    margin:0 auto 0 38%
+}
+
+.full-width .nav-slider-wrapper {
+    background:url("../image/slider_shadow-full-width.png") no-repeat scroll 50% -5% transparent;    
+}
+
+
