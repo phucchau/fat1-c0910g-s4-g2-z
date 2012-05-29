@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      >
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Management Lands</h1>
+                <br/>
+                <h:form id="form">  
+                    <h2> <h:link outcome="insertlands" styleClass="button" value="Create lands" /></h2>
+                    <br/>
+                    <p:growl id="growl" showDetail="true"/>  
+
+                    <p:dataTable var="land" value="#{landsBean.listLandsALLs}" resizableColumns="true" id="basicTable">  
+
+                        <p:column headerText="Lands Name " style="width:200px" id="LandName">  
+                            #{land.landName}  
+                        </p:column>  
+
+                        <p:column headerText="Image" style="width:200px" id="Image">  
+                            <h:graphicImage width="50px" url="../../ImageUser/#{land.image}" />
+                        </p:column>  
+
+                        <p:column headerText="Price" style="width:200px" id="Price">  
+                            <h:outputText value="#{land.price}" />  
+                        </p:column>  
+                        <p:column headerText="Cap Giay" style="width:200px" id="CapGiay">  
+                            <!-- nếu land.document.docID > 0 -> dc cap giay roi  -->
+                            
+                            <h:graphicImage url="/Admin/images/logo/true.png" rendered="#{not empty land.permit}" />
+                            <h:graphicImage url="/Admin/images/logo/false.png" rendered="#{empty land.permit}" />
+                        </p:column>  
+
+                        <p:column style="width:200px">  
+                            <h:column id="actions" headerClass="headertext">
+                                <f:facet name="header">
+                                </f:facet>
+                                <p:commandButton  value="Edit" immediate="true" action="#{landsBean.findLands(land.landId)}"  />  
+                                <p:commandButton  value="Permit" action="#{documentsBean.permitDocument(land.landId,land.landName)}" />  
+                                <p:commandButton onclick="return confirm('Are you sure you want to delete?')" value="delete" action="#{landsBean.deleteLands(land.landId)}" />  
+
+                            </h:column>
+                        </p:column>  
+
+                    </p:dataTable>  
+
+                </h:form>  
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

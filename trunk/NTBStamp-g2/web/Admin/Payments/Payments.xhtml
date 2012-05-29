@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Management Payment</h1>
+                <br/>
+                 
+                <h:form id="form">  
+                    <p:growl id="msgs" showDetail="true" />  
+
+                    <p:dataTable value="#{paymentBean.listPayments}" var="item" paginator="true" rows="10"  
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                             rowsPerPageTemplate="5,10,15,20" >
+                    <p:column style="width: 10px;">
+                        <f:facet name="header">
+                            <h:outputText value="" style="width: 10px;font-size:10px" />
+                        </f:facet>
+                        <img src="../images/room.png" alt="" width="16" height="16" />
+
+                    </p:column>
+
+                    <p:column style="width: 10px;">
+                        <f:facet name="header">
+                            <h:outputText value="Room" style="font-size:10px"/>
+                        </f:facet>
+                        <h:outputText value="#{item.roomID}" style="font-size:11px"/>
+                    </p:column>
+                    <p:column style="width: 10px;">
+                        <f:facet name="header">
+                            <h:outputText value="Customer" style="font-size:10px"/>
+                        </f:facet>
+                        <h:outputText value="#{item.customerID}" style="font-size:11px"/>
+                    </p:column>
+                    <p:column style="width: 10px;">
+                        <f:facet name="header">
+                            <h:outputText value="Payment" style="font-size:10px"/>
+                        </f:facet>
+                        <h:outputText value="#{item.payment}($)" style="font-size:11px"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="PayDate" style="font-size:10px"/>
+                        </f:facet>
+                        <h:outputText value="#{item.paydate}" style="font-size:11px"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Charge" style="font-size:10px"/>
+                        </f:facet>
+                        <h:outputText value="#{item.payCharge}" style="font-size:11px"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Status" style="font-size:10px"/>
+                        </f:facet>
+                        <h:outputText value="#{item.status}" style="font-size:11px"/>
+                    </p:column>
+                        <p:column>
+                        <f:facet name="header">
+                                <img src="../images/pay.png" alt="" width="16" height="16" />
+                        </f:facet>      
+                                <h:commandButton value="Pay" action="${paymentBean.p(item.paymentID)}"/>             
+                    </p:column>
+                    </p:dataTable>
+                </h:form> 
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
