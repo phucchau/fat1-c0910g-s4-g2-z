@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content-left">
+                <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 2px;">
+                    <h:outputText value="#{buildingsBean.b.buildingName} " escape="false"/>
+                    <h:outputText value="#{buildingsBean.b.buildingType}" escape="false" style="color: red;font-size: 12px;"/>
+                </h3>
+                <p class="separator"/>
+                <table style="width: 640px;font-size: 14px;text-align: left;" class="title">
+                    <tbody>
+                        <tr>
+                            <td width="395px" style="vertical-align: top;">Total Floors : <h:outputText value="#{buildingsBean.b.totalFloors}" style="color: #424242;font-size: 12px;" rendered="#{not empty buildingsBean.b.totalFloors}"/>
+                            </td>
+                            <td rowspan="5">
+                                <a href="../ImageUser/#{buildingsBean.b.image}" rel="lightbox" title="#{buildingsBean.b.buildingName}">
+                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{empty buildingsBean.b.image}"/>
+                                    <h:graphicImage url="../ImageUser/#{buildingsBean.b.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{not empty buildingsBean.b.image}"/>
+                                </a>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Total Rooms : <h:outputText value="#{buildingsBean.b.totalRooms}" style="color: #424242;font-size: 12px;" rendered="#{not empty buildingsBean.b.totalRooms}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Date : <h:outputText value="#{buildingsBean.b.date}" style="color: #424242;font-size: 12px;">
+                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Price :
+                                <h:outputText value="#{buildingsBean.b.price}" style="color: #424242;font-size: 12px;">
+                                    <f:convertNumber currencyCode="USD" type="currency" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;height: 30px;">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Description
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:outputText value="#{buildingsBean.b.description}" style="color: #424242;font-size: 12px;" escape="false" rendered="#{not empty buildingsBean.b.description}"></h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 30px;">
+                                    Rooms
+                                </h3>
+                                <p class="separator"/>
+                                <h:form>
+                                    <p:dataGrid value="#{buildingsBean.roombyBuildingID}" var="room" paginator="true" rows="6" columns="2" paginatorPosition="bottom" pageLinks="5" rendered="#{not empty buildingsBean.roombyBuildingID}">
+                                        <p:column> 
+                                            <div class="item-content-left" style="height: 290px;">
+                                                <h:commandLink action="#{roomsBean.goRoom()}" style="color: black;text-decoration: none;">
+                                                    <div class="space" style="height:  10px;"/>
+                                                    <h:outputText value="Room No : " escape="false" style="color: #424242;font-size: 12px; "/>
+                                                    <h:outputText value="#{room.roomNo}" escape="false" style="color: red;font-size: 11px;"/>
+                                                    <div class="space" style="height:  3px;"/>
+                                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" styleClass="image" rendered="#{empty room.image}"/>
+                                                    <h:graphicImage url="../ImageUser/#{room.image}" styleClass="image" rendered="#{not empty room.image}"/>
+                                                    <f:param name="idRoom" value="#{room.roomId}" />
+                                                    <p class="description" style="color: black;font-weight: normal;font-size: 11px;"><h:outputText value="#{room.subDescription}" rendered="#{not empty room.description}"/></p>
+                                                    <p class="readmore">Read More</p>
+                                                </h:commandLink>
+                                            </div>
+                                        </p:column>
+                                    </p:dataGrid> 
+                                </h:form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

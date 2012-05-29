@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content-left">
+                <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 2px;">
+                    <h:outputText value="#{landsBean.l.landName} " escape="false"/>
+                    <h:outputText value="#{landsBean.l.landTypeID.landName}" escape="false" style="color: red;font-size: 12px;"/>
+                </h3>
+                <p class="separator"/>
+                <table style="width: 640px;font-size: 14px;text-align: left;" class="title">
+                    <tbody>
+                        <tr>
+                            <td width="395px" style="vertical-align: top;">Near by : <h:outputText value="#{landsBean.l.nearBy}" style="color: #424242;font-size: 12px;"/>
+                            </td>
+                            <td rowspan="5">
+                                <a href="../ImageUser/#{landsBean.l.image}" rel="lightbox" title="#{landsBean.l.landName}">
+                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{empty landsBean.l.image}"/>
+                                    <h:graphicImage url="../ImageUser/#{landsBean.l.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{not empty landsBean.l.image}"/>
+                                </a>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Address : <h:outputText value="#{landsBean.l.address}" style="color: #424242;font-size: 12px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Date : <h:outputText value="#{landsBean.l.date}" style="color: #424242;font-size: 12px;">
+                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Price : <h:outputText value="#{landsBean.l.price}" style="color: #424242;font-size: 12px;">
+                                    <f:convertNumber currencyCode="USD" type="currency" />
+                                </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Permit
+                                <h:form>
+                                    <p:commandLink onclick="dlg.show();" style="text-decoration: none;" rendered="#{not empty landsBean.documentsbyLandID}">
+                                        <h:outputText value="Click here to view Permit" style="color: blue;font-size: 12px;"/>
+                                    </p:commandLink>
+                                    <p:dialog id="DocumentDialog" header="Documents" widgetVar="dlg" modal="true" rendered="#{not empty landsBean.documentsbyLandID}">  
+                                        <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 2px;">
+                                            <h:outputText value="#{landsBean.documentsbyLandID.title}" escape="false"/>
+                                        </h3>
+                                        <p class="separator"/>
+                                        <table style="width: 640px;font-size: 14px;text-align: left;" class="title">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="395px" style="vertical-align: top;">Permit Date : <h:outputText value="#{landsBean.documentsbyLandID.permitDate}" style="color: #424242;font-size: 12px;">
+                                                            <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                                        </h:outputText>
+                                                    </td>
+                                                    <td rowspan="3">
+                                                        <a href="../ImageUser/#{landsBean.documentsbyLandID.image}" rel="lightbox" title="#{landsBean.documentsbyLandID.title}">
+                                                            <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{empty landsBean.documentsbyLandID.image}"/>
+                                                            <h:graphicImage url="../ImageUser/#{landsBean.documentsbyLandID.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{not empty landsBean.documentsbyLandID.image}"/>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="vertical-align: top;">Signature : <h:outputText value="#{landsBean.documentsbyLandID.signature}" style="color: #424242;font-size: 12px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="vertical-align: top;">Charge : <h:outputText value="#{landsBean.documentsbyLandID.chargeId.charge}" style="color: #424242;font-size: 12px;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">Description
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <h:outputText value="#{landsBean.documentsbyLandID.description}" style="color: #424242;font-size: 12px;" escape="false" rendered="#{not empty landsBean.documentsbyLandID.description}"></h:outputText>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </p:dialog>  
+                                    <h:outputText value="Not have Permit" style="color: #424242;font-size: 12px;color: red;" rendered="#{empty landsBean.documentsbyLandID}"/>
+                                </h:form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Description
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:outputText value="#{landsBean.l.description}" style="color: #424242;font-size: 12px;" escape="false" rendered="#{not empty landsBean.l.description}"></h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 30px;">
+                                    Building
+                                </h3>
+                                <p class="separator"/>
+                                <h:form>
+                                    <p:dataGrid value="#{landsBean.listBuildingbyIdland}" var="build" paginator="true" rows="6" columns="2" paginatorPosition="bottom" pageLinks="5" rendered="#{not empty landsBean.listBuildingbyIdland}">
+                                        <p:column> 
+                                            <div class="item-content-left" style="height: 290px;">
+                                                <h:commandLink action="#{buildingsBean.goBuilding()}" style="color: black;text-decoration: none;">
+                                                    <div class="space" style="height:  10px;"/>
+                                                    <h:outputText value="#{build.buildingName} " escape="false" style="color: #424242;font-size: 12px; "/>
+                                                    <h:outputText value="#{build.buildingType}" escape="false" style="color: red;font-size: 11px;"/>
+                                                    <div class="space" style="height:  3px;"/>
+                                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" styleClass="image" rendered="#{empty build.image}"/>
+                                                    <h:graphicImage url="../ImageUser/#{build.image}" styleClass="image" rendered="#{not empty build.image}"/>
+                                                    <f:param name="idBuilding" value="#{build.buildingId}" />
+                                                    <p class="description" style="color: black;font-weight: normal;font-size: 11px;"><h:outputText value="#{build.subDescription}" rendered="#{not empty build.description}"/></p>
+                                                    <p class="readmore">Read More</p>
+                                                </h:commandLink>
+                                            </div>
+                                        </p:column>
+                                    </p:dataGrid> 
+                                </h:form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
