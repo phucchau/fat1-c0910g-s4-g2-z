@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h3>
+                    <h:link outcome="lands" value="Back" styleClass="button"  />
+                </h3>
+                <h:form id="form" enctype="multipart/form-data"> 
+                    <div class="CusdivRegis">
+
+                        <p:panel id="panel" style="border: none;background: transparent;padding: 0px;margin: 0px;border: none;">  
+                            <table style="padding-left: 50px;font-size: 13px;">
+                                <tbody>
+                                    <tr style="padding-top: 5px;">
+                                        <td colspan="3">
+                                            <h3 style="font-size: 15px;">
+                                                Permit
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            Title 
+                                        </td>
+                                        <td>
+                                            <p:inputText id="title" value="#{documentsBean.title}" >
+                                                <f:validateLength minimum="2" />  
+                                                <p:ajax update="msgTitle" event="keyup" /> 
+                                            </p:inputText>
+                                        </td>
+                                        <td>
+                                            <p:message for="title" id="msgTitle" display="icon"/>  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            Charge
+                                        </td>
+                                        <td colspan="2">
+                                            <p:selectOneMenu value="#{documentsBean.chargeId}" effect="fade" required="true" id="chargeId" >  
+                                                <f:selectItem itemLabel="-- Select One --" itemValue="" />  
+                                                <f:selectItems value="#{documentsBean.documentItem}" />  
+                                            </p:selectOneMenu>  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Signature
+                                        </td>
+                                        <td colspan="2">
+                                            <p:editor id="signature" value="#{documentsBean.signature}" width="600"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Description
+                                        </td>
+                                        <td colspan="2">
+                                            <p:editor id="description" value="#{documentsBean.description}" width="600"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="2">
+                                            <p:fileUpload fileUploadListener="#{documentsBean.handleFileUpload}"  
+                                                          mode="advanced"  
+                                                          update="messages"  
+                                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> 
+                                            <p:growl id="messages" showDetail="true"/>  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:inputHidden id="docID" value="#{documentsBean.docID}" /></td>
+                                        <td colspan="2">
+                                            <p:commandButton value="Reset" type="reset" />  
+                                            <p:commandButton  value="Save" update="panel" actionListener="#{documentsBean.createDocument()}" /> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <p:messages id="msgs"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </p:panel>
+                    </div>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
