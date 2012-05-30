@@ -4,6 +4,7 @@
  */
 package eb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,5 +25,10 @@ public class RoomTypesFacade extends AbstractFacade<RoomTypes> {
     public RoomTypesFacade() {
         super(RoomTypes.class);
     }
+    
+    public List<RoomTypes> getAllRoomTypeDESC() {
+        return  em.createQuery("SELECT r FROM RoomTypes r ORDER BY r.typeId DESC").getResultList();
+    }
+    
     
 }

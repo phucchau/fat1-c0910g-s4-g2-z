@@ -6,110 +6,129 @@ package bean;
 
 import eb.PaymentCharge;
 import eb.PaymentChargeFacade;
-import eb.RoomTypes;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
  *
- * @author VietDuc
+ * @author DuMaster
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class PaymentChargeBean {
     @EJB
-    private PaymentChargeFacade paymentChargeFacade;    
-    private int payChargeID;
-    private String chargeName;
-    private double interest;
-    private int month;
-    private List<PaymentCharge> listPaymentCharge;
+    private PaymentChargeFacade paymentChargeFacade;
+
+    public Integer PayChargeID;
+    public String Chargename;
+    public Double Interest;
+    public Integer PayChargeTime;
+    public PaymentCharge pc;
+    public String getChargename() {
+        return Chargename;
+    }
+
+    public void setChargename(String Chargename) {
+        this.Chargename = Chargename;
+    }
+
+    public Double getInterest() {
+        return Interest;
+    }
+
+    public void setInterest(Double Interest) {
+        this.Interest = Interest;
+    }
+
+    public Integer getPayChargeID() {
+        return PayChargeID;
+    }
+
+    public void setPayChargeID(Integer PayChargeID) {
+        this.PayChargeID = PayChargeID;
+    }
+
+    public Integer getPayChargeTime() {
+        return PayChargeTime;
+    }
+
+    public void setPayChargeTime(Integer PayChargeTime) {
+        this.PayChargeTime = PayChargeTime;
+    }
+    
     /** Creates a new instance of PaymentChargeBean */
     public PaymentChargeBean() {
-        
     }
 
-    public int getPayChargeID() {
-        return payChargeID;
-    }
-
-    public void setPayChargeID(int payChargeID) {
-        this.payChargeID = payChargeID;
+    public PaymentChargeBean(Integer PayChargeID, String Chargename, Double Interest, Integer PayChargeTime) {
+        this.PayChargeID = PayChargeID;
+        this.Chargename = Chargename;
+        this.Interest = Interest;
+        this.PayChargeTime = PayChargeTime;
     }
     
-    public String getChargeName() {
-        return chargeName;
+    // Load all PaymentCharge
+    public List<PaymentCharge> getListAllPaymentCharge() {
+        return paymentChargeFacade.getAllPaymentChargerDESC();
     }
 
-    public void setChargeName(String chargeName) {
-        this.chargeName = chargeName;
-    }
-
-    public double getInterest() {
-        return interest;
-    }
-
-    public void setInterest(double interest) {
-        this.interest = interest;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-    
-    public List<PaymentCharge> getListPaymentCharge() {
-        List<PaymentCharge> list  = new ArrayList<PaymentCharge>();
-        List<PaymentCharge> listPC = paymentChargeFacade.findAll();
-        for (PaymentCharge paymentCharge : listPC) {
-            list.add(paymentCharge);
-        }
-        return list;
-    }
-
-    public void setListPaymentCharge(List<PaymentCharge> listPaymentCharge) {
-        this.listPaymentCharge = listPaymentCharge;
-    }
-    public String createPaymentCharge(){
-        PaymentCharge pc = new PaymentCharge();
-        pc.setPayChargeID(1);
-        pc.setChargename(chargeName);
-        pc.setInterest(interest);
-        pc.setPayChargeTime(month);
-        paymentChargeFacade.create(pc);                
-        return "paymentChargePage";
-    }
-    public String updatePaymentCharge(){
-       PaymentCharge pc = paymentChargeFacade.find(payChargeID);
-       
-        pc.setChargename(chargeName);
-        pc.setInterest(interest);
-        pc.setPayChargeTime(month);
-        paymentChargeFacade.edit(pc);     
-        return "paymentChargePage";
-    }
-     public String deletePaymentCharge(){
-       PaymentCharge pc = paymentChargeFacade.find(payChargeID);
-       
-        
-        paymentChargeFacade.remove(pc);     
-        return "paymentChargePage";
-    }
-     
-     public void findPaymentCharge(int id) {
+    // create PaymentCharge
+    public void createAllPaymentCharge() {
         try {
-            PaymentCharge pc = paymentChargeFacade.find(id);
-            this.payChargeID = pc.getPayChargeID();
-            this.chargeName = pc.getChargename();
-            this.interest = pc.getInterest();
-            this.month = pc.getPayChargeTime();
+
+            pc = new PaymentCharge();
+            pc.setChargename(Chargename);
+            pc.setInterest(Interest);
+            pc.setPayChargeTime(PayChargeTime);
+           
+            paymentChargeFacade.create(pc);
+            this.Chargename = "";
+            this.Interest = 0.0;
+            this.PayChargeTime = 0;
+            
+            FacesContext.getCurrentInstance().getExternalContext().redirect("PaymentCharge.xhtml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // update PaymentCharge
+    public void updatePaymentCharge() {
+        try {
+
+            pc = new PaymentCharge();
+            pc.setPayChargeID(PayChargeID);
+            pc.setChargename(Chargename);
+            pc.setInterest(Interest);
+            pc.setPayChargeTime(PayChargeTime);
+
+            paymentChargeFacade.edit(pc);
+            this.Chargename = "";
+            this.Interest = 0.0;
+            this.PayChargeTime = 0;
+            FacesContext.getCurrentInstance().getExternalContext().redirect("PaymentCharge.xhtml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void findPaymentCharge(int id) {
+        try {
+
+            PaymentCharge p = paymentChargeFacade.find(id);
+            this.setPayChargeID(p.getPayChargeID());
+            this.setChargename(p.getChargename());
+            this.setInterest(p.getInterest());
+            this.setPayChargeTime(p.getPayChargeTime());
 
             FacesContext.getCurrentInstance().getExternalContext().redirect("EditPaymentCharge.xhtml");
 
@@ -117,5 +136,18 @@ public class PaymentChargeBean {
             e.printStackTrace();
         }
 
+    }
+
+    // xóa PaymentCharge
+    public void deletePaymentCharge(int idc) {
+        try {
+            PaymentCharge p = paymentChargeFacade.find(idc);
+            paymentChargeFacade.remove(p);
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("PaymentCharge.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(PaymentChargeBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }
 }

@@ -5,6 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       >
 
     <body>
@@ -16,44 +17,40 @@
             </ui:define>
 
             <ui:define name="content">
-                <h1>Management Room</h1>
+                <h1>Management Room Type</h1>
                 <br/>
-                 
                 <h:form id="form">  
-                    <h2> <h:link outcome="CreateRoomType" styleClass="button" value="Create RoomType" /></h2>
+                    <h2> <h:link outcome="insertroomtype" styleClass="button" value="Create Room Type" /></h2>
                     <br/>
+                    <p:growl id="growl" showDetail="true"/>  
 
-                    <p:growl id="msgs" showDetail="true" />  
+                    <p:dataTable var="roomtype" value="#{roomTypeBean.listAllRoomType}" resizableColumns="true" id="basicTable">  
 
-                    <p:dataTable id="cha" var="charget" value="#{roomTypeBean.listRoomType}" tableStyle="width:auto">  
-
-                        <p:column headerText="ID" style="width:100px">  
-                            <h:outputText value="#{charget.typeId}" />  
+                        <p:column headerText="Room typeId" style="width:200px" id="typeId">  
+                            #{roomtype.typeId}  
                         </p:column>  
 
-                        <p:column headerText="Type Name" style="width:200px">  
-                            <h:outputText value="#{charget.typeName}" />  
-                        </p:column>   
-                        
-                        <p:column headerText="Price" style="width:200px">  
-                            <h:outputText value="#{charget.price}" />  
+                        <p:column headerText="Room typeName" style="width:200px" id="typeName">  
+                            #{roomtype.typeName}  
                         </p:column>  
 
-                        <p:column style="width:200px">  
+                        <p:column headerText="room typePrice" style="width:200px" id="price">  
+                            <h:outputText value="#{roomtype.price}" />  
+                        </p:column>  
 
+                        <p:column style="width:400px">  
                             <h:column id="actions" headerClass="headertext">
                                 <f:facet name="header">
                                 </f:facet>
-                                <p:commandButton  value="Edit" immediate="true" action="#{roomTypeBean.findRoomType(charget.typeID)}"  />  
-                                <p:commandButton  onclick="return confirm('Are you sure you want to delete?')"  value="delete" action="#{chargeTypeBean.deleteChargetType(charget.chargeId)}" />  
+                                <p:commandButton  value="Edit" immediate="true" action="#{roomTypeBean.findRoomType(roomtype.typeId)}"  />  
+                                <p:commandButton onclick="return confirm('Are you sure you want to delete?')" value="delete" action="#{roomTypeBean.deleteRoomType(roomtype.typeId)}" />  
 
                             </h:column>
                         </p:column>  
 
                     </p:dataTable>  
 
-                </h:form> 
-
+                </h:form>  
             </ui:define>
 
         </ui:composition>

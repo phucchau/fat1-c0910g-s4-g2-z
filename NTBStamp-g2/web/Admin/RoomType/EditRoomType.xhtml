@@ -5,6 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       >
 
     <body>
@@ -16,34 +17,67 @@
             </ui:define>
 
             <ui:define name="content">
-                <h1>Edit RoomType</h1>
-                <h:form id="form">  
-                    <h:link outcome="RoomType" styleClass="button"  value="Back"/> 
-                    <p:panel id="panel" style="border: none;">  
-                        <p:messages id="msgs"/>
+               <h3>
+                    <h:link outcome="roomtype" value="Back" styleClass="button"  />
+                </h3>
+                <h:form id="form" enctype="multipart/form-data"> 
+                    <div class="CusdivRegis">
 
-                        <h:panelGrid columns="2" cellpadding="5">  
+                        <p:panel id="panel" style="border: none;background: transparent;padding: 0px;margin: 0px;border: none;">  
+                            <table style="padding-left: 50px;font-size: 13px;">
+                                <tbody>
+                                    <tr style="padding-top: 5px;">
+                                        <td colspan="3">
+                                            <h3 style="font-size: 15px;">
+                                                Edit RoomType
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                          Room TypeName	
+                                        </td>
+                                        <td>
+                                            <p:inputText id="typeName" value="#{roomTypeBean.typeName}" >  
+                                                <f:validateLength minimum="2" />  
+                                                <p:ajax update="msgtypeName" event="keyup" /> 
+                                            </p:inputText>
+                                        </td>
+                                        <td>
+                                            <p:message for="typeName" id="msgtypeName" display="icon"/>    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            Price
+                                        </td>
+                                        <td>
+                                            <p:inputText id="price" value="#{roomTypeBean.price}" required="true" label="Username">  
+                                                <f:validateLength minimum="2" />  
+                                                <p:ajax update="msgprice" event="keyup" /> 
+                                            </p:inputText>  
+                                        </td>
+                                        <td>
+                                            <p:message for="price" id="msgprice" display="icon"/>     
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h:inputHidden id="typeId" value="#{roomTypeBean.typeId}" /></td>
+                                        <td colspan="2">
+                                            <p:commandButton value="Reset" type="reset" />  
+                                            <p:commandButton  value="Save" update="panel" actionListener="#{roomTypeBean.updateRoomType()}" />  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <p:messages id="msgs"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </p:panel>
+                    </div>
 
-                            <h:outputText value="" /> 
-                            <h:inputHidden id="RoomId" value="#{roomTypeBean.typeID}" />
-
-                            <h:outputText value="Type Name " /> 
-                            <p:inputText id="TypeName" value="#{roomTypeBean.typeName}" >  
-                                <f:validateLength minimum="2" />  
-                                <p:ajax update="msgRoomType" event="keyup" /> 
-                            </p:inputText>
-                            <h:outputText value="Price " /> 
-                            <p:inputText id="price" value="#{roomTypeBean.price}" >  
-                                <f:validateLength minimum="2" />  
-                                <p:ajax update="msgRoomType" event="keyup" /> 
-                            </p:inputText>
-                            <p:message for="charge" id="msgRoomType" display="icon"/>  
-                            <f:facet name="footer"> 
-                                <p:commandButton value="Reset" type="reset" />  
-                                <p:commandButton  value="Save" update="panel" actionListener="#{roomTypeBean.updateRoomType()}" />  
-                            </f:facet>
-                        </h:panelGrid>  
-                    </p:panel>
                 </h:form>
             </ui:define>
 

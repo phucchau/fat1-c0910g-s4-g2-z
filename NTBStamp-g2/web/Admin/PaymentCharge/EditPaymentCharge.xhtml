@@ -16,39 +16,75 @@
             </ui:define>
 
             <ui:define name="content">
-                <h1>Edit PaymentCharge</h1>
-                <h:form id="form">  
-                    <h:link outcome="PaymentCharge" styleClass="button"  value="Back"/> 
-                    <p:panel id="panel" style="border: none;">  
-                        <p:messages id="msgs"/>
+                <h3>
+                    <h:link outcome="PaymentCharge" value="Back" styleClass="button"  />
+                </h3>
+                <h:form id="form" enctype="multipart/form-data"> 
+                    <div class="CusdivRegis">
 
-                        <h:panelGrid columns="2" cellpadding="5">  
+                        <p:panel id="panel" style="border: none;background: transparent;padding: 0px;margin: 0px;border: none;">  
+                            <table style="padding-left: 50px;font-size: 13px;">
+                                <tbody>
+                                    <tr style="padding-top: 5px;">
+                                        <td colspan="3">
+                                            <h3 style="font-size: 15px;">
+                                                Edit paymentCharger
+                                            </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            Charge Name
+                                        </td>
+                                        <td>
+                                            <p:inputText id="chargeName" value="#{paymentChargeBean.chargename}" >  
+                                                <f:validateLength minimum="2" />  
+                                                <p:ajax update="msgchargeName" event="keyup" /> 
+                                            </p:inputText>
+                                        </td>
+                                        <td>
+                                            <p:message for="chargeName" id="msgchargeName" display="icon"/>    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            Interest
+                                        </td>
+                                        <td>
+                                            <p:inputText id="interest" value="#{paymentChargeBean.interest}" required="true">  
+                                                <f:validateLength minimum="2" />  
+                                                <p:ajax update="msginterest" event="keyup" /> 
+                                            </p:inputText>  
+                                        </td>
+                                        <td>
+                                            <p:message for="interest" id="msginterest" display="icon"/>     
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            PayCharge Time
+                                        </td>
+                                        <td colspan="2">
+                                            <p:spinner id="payChargeID"   value="#{paymentChargeBean.payChargeTime}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="2">
+                                            <p:commandButton value="Reset" type="reset" />  
+                                            <p:commandButton  value="Save" update="panel" actionListener="#{paymentChargeBean.updatePaymentCharge()}" />  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <p:messages id="msgs"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </p:panel>
+                    </div>
 
-                            <h:outputText value="ID" /> 
-                            <h:inputHidden id="PayChargeID" value="#{paymentChargeBean.payChargeID}" />
-
-                            <h:outputText value="Name Charge " /> 
-                            <p:inputText id="charge" value="#{paymentChargeBean.chargeName}" >  
-                                <f:validateLength minimum="2" />  
-                                <p:ajax update="ChargeName" event="keyup" /> 
-                            </p:inputText>
-                            <h:outputText value="Interest " /> 
-                            <p:inputText id="charge" value="#{paymentChargeBean.interest}" >  
-                                <f:validateLength minimum="2" />  
-                                <p:ajax update="Interest" event="keyup" /> 
-                            </p:inputText>
-                            <h:outputText value="PayChargeTime " /> 
-                            <p:inputText id="charge" value="#{paymentChargeBean.month}" >  
-                                <f:validateLength minimum="2" />  
-                                <p:ajax update="PayChargeTime" event="keyup" /> 
-                            </p:inputText>
-                            <p:message for="charge" id="msgCharget" display="icon"/>  
-                            <f:facet name="footer"> 
-                                <p:commandButton value="Reset" type="reset" />  
-                                <p:commandButton  value="Save" update="panel" actionListener="#{paymentChargeBean.updatePaymentCharge()}" />  
-                            </f:facet>
-                        </h:panelGrid>  
-                    </p:panel>
                 </h:form>
             </ui:define>
 

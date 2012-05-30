@@ -4,111 +4,147 @@
  */
 package bean;
 
-import eb.ChargeType;
 import eb.RoomTypes;
 import eb.RoomTypesFacade;
+import eb.Rooms;
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
- * @author VietDuc
+ * @author DuMaster
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class RoomTypeBean {
+
     @EJB
     private RoomTypesFacade roomTypesFacade;
-    List<RoomTypes> listRoomType ;
+    public Integer TypeId;
+    public String TypeName;
+    public BigDecimal Price;
+    public RoomTypes rt;
 
-    /** Creates a new instance of RoomTypeBean */
-    private int typeID;
-    private String typeName;
-    private BigDecimal price; 
-    public RoomTypeBean() {
-    }
-
-    public int getTypeID() {
-        return typeID;
-    }
-
-    public void setTypeID(int typeID) {
-        this.typeID = typeID;
-    }
-    
     public BigDecimal getPrice() {
-        return price;
+        return Price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPrice(BigDecimal Price) {
+        this.Price = Price;
+    }
+
+    public Integer getTypeId() {
+        return TypeId;
+    }
+
+    public void setTypeId(Integer TypeId) {
+        this.TypeId = TypeId;
     }
 
     public String getTypeName() {
-        return typeName;
+        return TypeName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setTypeName(String TypeName) {
+        this.TypeName = TypeName;
     }
 
-    public List<RoomTypes> getListRoomType() {
-        List<RoomTypes> listRT = new ArrayList<RoomTypes>();
-        List<RoomTypes> list  = roomTypesFacade.findAll();
-        for (RoomTypes roomTypes : list) {
-            listRT.add(roomTypes);
-        }
-        return listRT;
+    public RoomTypeBean(Integer TypeId, String TypeName, BigDecimal Price) {
+        this.TypeId = TypeId;
+        this.TypeName = TypeName;
+        this.Price = Price;
     }
 
-    public void setListRoomType(List<RoomTypes> listRoomType) {
-        this.listRoomType = listRoomType;
+    /** Creates a new instance of RoomTypeBean */
+    public RoomTypeBean() {
     }
-    public String createRoomType(){
-            RoomTypes rt = new RoomTypes();
 
-            rt.setTypeId(1);
-            rt.setTypeName(typeName);
-            rt.setPrice(price);
+    // Load all RoomType
+    public List<RoomTypes> getListAllRoomType() {
+        return roomTypesFacade.getAllRoomTypeDESC();
+    }
+
+    // create Roomtype
+    public void createAllRoomType() {
+        try {
+
+            rt = new RoomTypes();
+            rt.setTypeName(TypeName);
+            rt.setPrice(Price);
 
             roomTypesFacade.create(rt);
+            this.TypeName = "";
 
-            return "RoomType"; 
+            FacesContext.getCurrentInstance().getExternalContext().redirect("RoomType.xhtml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    public String updateRoomType(){
-        int id = typeID;
-        RoomTypes rt = roomTypesFacade.find(id);
-        rt.setTypeName(typeName);
-        rt.setPrice(price);
-       
-        roomTypesFacade.edit(rt);
-//        System.out.println("id"+typeID);
-        
-        return "RoomType";
-    }
-    public String deleteRoomType(){
-       RoomTypes rt = roomTypesFacade.find(getTypeID());
-        roomTypesFacade.remove(rt);
-        return "RoomType.xhtml";
-    }
-    
-    public void findRoomType(int id) {
+
+    // update RoomType
+    public void updateRoomType() {
         try {
-            RoomTypes rt = roomTypesFacade.find(id);
-            this.typeID = rt.getTypeId();
-            this.typeName = rt.getTypeName();
-            this.price = rt.getPrice();
 
-            FacesContext.getCurrentInstance().getExternalContext().redirect("EditRoomType.xhtml");
+            rt = new RoomTypes();
+            rt.setTypeId(TypeId);
+            rt.setTypeName(TypeName);
+            rt.setPrice(Price);
+
+            roomTypesFacade.edit(rt);
+            this.TypeName = "";
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("RoomType.xhtml");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void findRoomType(int id) {
+        try {
+
+            RoomTypes rt = roomTypesFacade.find(id);
+            this.TypeId = rt.getTypeId();
+            this.TypeName = rt.getTypeName();
+            this.Price = rt.getPrice();
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("editroomtype.xhtml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // xóa RoomType
+    public void deleteRoomType(int idc) {
+        try {
+            RoomTypes rt = roomTypesFacade.find(idc);
+            roomTypesFacade.remove(rt);
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("RoomType.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(RoomTypeBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public List<SelectItem> getRoomTypeItem() {
+        List<SelectItem> rs = new LinkedList<SelectItem>();
+        List<RoomTypes> lst = roomTypesFacade.getAllRoomTypeDESC();
+        for (RoomTypes l : lst) {
+            rs.add(new SelectItem(l.getTypeId(),l.getTypeName()));
+        }
+        return rs;
     }
 }
