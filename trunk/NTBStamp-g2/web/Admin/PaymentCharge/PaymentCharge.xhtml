@@ -25,22 +25,22 @@
 
                     <p:growl id="msgs" showDetail="true" />  
 
-                    <p:dataTable id="cha" var="PaymentCharge" value="#{paymentChargeBean.listPaymentCharge}" tableStyle="width:auto">  
+                    <p:dataTable id="cha" var="PaymentCharge" value="#{paymentChargeBean.listAllPaymentCharge}" tableStyle="width:auto">  
 
                         <p:column headerText="ID" style="width:100px">  
-                            <h:outputText value="#{paymentChargeBean.payChargeID}" />  
+                            <h:outputText value="#{PaymentCharge.payChargeID}" />  
                         </p:column>  
 
                         <p:column headerText="Name Charge" style="width:200px">  
-                            <h:outputText value="#{paymentChargeBean.chargeName}" />  
+                            <h:outputText value="#{PaymentCharge.chargename}" />  
                         </p:column>  
                         
                         <p:column headerText="Interest" style="width:200px">  
-                            <h:outputText value="#{paymentChargeBean.interest}" />  
+                            <h:outputText value="#{PaymentCharge.interest}" />  
                         </p:column>
                         
                         <p:column headerText="ChargeTime" style="width:200px">  
-                            <h:outputText value="#{paymentChargeBean.month}" />  
+                            <h:outputText value="#{PaymentCharge.payChargeTime}" />  
                         </p:column>
 
                         <p:column style="width:200px">  
@@ -48,8 +48,8 @@
                             <h:column id="actions" headerClass="headertext">
                                 <f:facet name="header">
                                 </f:facet>
-                                <p:commandButton  value="Edit" immediate="true" action="#{paymentChargeBean.findPaymentCharge(paymentChargeBean.payChargeID)}"  />  
-                                <p:commandButton  onclick="return confirm('Are you sure you want to delete?')"  value="delete" action="#{paymentChargeBean.deletePaymentCharge(paymentChargeBean.payChargeID)}" />  
+                                <p:commandButton  value="Edit" immediate="true" action="#{paymentChargeBean.findPaymentCharge(PaymentCharge.payChargeID)}"  />  
+                                <p:commandButton  onclick="return confirm('Are you sure you want to delete?')"  value="delete" action="#{paymentChargeBean.deletePaymentCharge(PaymentCharge.payChargeID)}" />  
 
                             </h:column>
                         </p:column>  
