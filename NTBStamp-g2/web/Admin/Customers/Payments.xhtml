@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../AdminTemplate.xhtml">
+
+            <ui:define name="queryandcss">
+                <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Management Payment</h1>
+                <br/>
+                <h3>
+                    <h:link outcome="customers" value="Back" styleClass="button"  />
+                </h3>
+                <br/>
+                <h:form id="form">  
+                    <p:growl id="growl" showDetail="true"/>  
+
+                    <p:dataTable var="payment" value="#{paymentBean.listPaymentsType}"  tableStyle="width:auto">  
+
+                        <p:column headerText="ID" style="width:200px" id="paymentID">  
+                            #{payment.paymentID}  
+                        </p:column>   
+
+                        <p:column  headerText="Room">  
+                            <h:panelGrid columns="3" styleClass="actions" cellpadding="2">  
+                                <p:commandButton id="selectButton" update=":form:display" oncomplete="roomDialog.show()" icon="ui-icon-search" title="View">  
+                                    <f:setPropertyActionListener value="#{payment.roomID}" target="#{paymentBean.selectRooms}" />  
+                                </p:commandButton>  
+                            </h:panelGrid>  
+                        </p:column> 
+
+                        <p:column headerText="End date" style="width:200px" id="paydate">  
+                            <h:outputText value="#{payment.paydate}" />  
+                        </p:column>  
+                        
+                        <p:column headerText="Status Payment" style="width:200px" id="payment">  
+                            <h:graphicImage url="/Admin/images/logo/true.png" rendered="#{not empty payment.payment}" />
+                            <h:graphicImage url="/Admin/images/logo/false.png" rendered="#{empty payment.payment}" />
+                        </p:column>  
+                        
+                        <p:column style="width:300px">  
+                            <h:column id="actions" headerClass="headertext">
+                                <f:facet name="header">
+                                </f:facet>
+                                <p:commandButton onclick="return confirm('Are you sure you want to delete?')" value="delete" action="#{paymentBean.deletePayments(payment.paymentID)}" />  
+                                <p:commandButton  value="Payment" action="#{paymentBean.updatePayments(payment.paymentID,paymentBean.selectRooms.buildingId.price * paymentBean.selectRooms.totalSquare )}" />  
+
+                            </h:column>
+                        </p:column>  
+
+                    </p:dataTable>  
+
+                    <p:dialog header="Room Detail" widgetVar="roomDialog" resizable="false" id="carDlg"  
+                              showEffect="fade" hideEffect="explode" modal="true">  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                            <f:facet name="header">  
+                                <h:graphicImage width="100px" url="../../ImageUser/#{paymentBean.selectRooms.image}" /> 
+                            </f:facet>  
+
+                            <h:outputText value="Room Id :" />  
+                            <h:outputText value="#{paymentBean.selectRooms.roomId}" style="font-weight:bold"/>  
+
+                            <h:outputText value="Room No :" />  
+                            <h:outputText value="#{paymentBean.selectRooms.roomNo}" style="font-weight:bold"/>  
+
+
+                            <h:outputText value="Total Square :" />  
+                            <h:outputText value="#{paymentBean.selectRooms.totalSquare}" style="font-weight:bold"/>  
+
+                            <h:outputText value="Total Price :" />  
+                            <h:outputText value="#{paymentBean.selectRooms.totalPrice}" style="font-weight:bold"/>  
+                            
+                            <h:outputText value="Building Name :" />  
+                            <h:outputText value="#{paymentBean.selectRooms.buildingId.buildingName}" style="font-weight:bold"/>  
+                            
+                            <h:outputText value="Building Price :" />  
+                            <h:outputText value="#{paymentBean.selectRooms.buildingId.price}" style="font-weight:bold"/>  
+                            
+                            <h:outputText value="Total Payment :" />  
+                            <h:outputText value="#{paymentBean.selectRooms.buildingId.price * paymentBean.selectRooms.totalSquare }" style="color:red; font-weight:bold;"/>  
+                            
+                        </h:panelGrid>  
+
+                    </p:dialog>  
+
+                </h:form>  
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

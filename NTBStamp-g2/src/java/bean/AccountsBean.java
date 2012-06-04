@@ -14,6 +14,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -226,6 +228,25 @@ public class AccountsBean {
         }
         
         
+
+    }
+    
+    public void logoutAccount() throws IOException {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.setAttribute("authenticate", null);
+        setUsername("Enter keywords...");
+        setPassword("Enter keywords...");
+        try {
+            Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String url = ((HttpServletRequest) request).getRequestURL().toString();
+            if (url.endsWith("admin.xhtml")) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+            } else {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml");
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+        }
 
     }
     

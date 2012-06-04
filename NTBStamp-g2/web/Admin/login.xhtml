@@ -33,24 +33,22 @@
 
                 <!--  start login-inner -->
                 <div id="login-inner">
-                    <table border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <th>Username</th>
-                            <td><input type="text"  class="login-inp" /></td>
-                        </tr>
-                        <tr>
-                            <th>Password</th>
-                            <td><input type="password" value="************"  onfocus="this.value=''" class="login-inp" /></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td valign="top"><input type="checkbox" class="checkbox-size" id="login-check" /><label for="login-check">Remember me</label></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><input type="button" class="submit-login"  /></td>
-                        </tr>
-                    </table>
+                    <h:form>
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th>Username</th>
+                                <td><h:inputText styleClass="login-inp" value="#{loginBean.username}" onfocus="if(this.value=='Enter keywords...')this.value='';" onblur="if(this.value=='')this.value='Enter keywords...';" /></td>
+                            </tr>
+                            <tr>
+                                <th>Password</th>
+                                <td><h:inputSecret styleClass="login-inp" value="#{loginBean.password}" onfocus="if(this.value=='Enter keywords...')this.value='';" onblur="if(this.value=='')this.value='Enter keywords...';" /></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td><h:commandButton styleClass="submit-login" action="#{loginBean.checkLogin()}"/></td>
+                            </tr>
+                        </table>
+                    </h:form>
                 </div>
                 <!--  end login-inner -->
                 <div class="clear"></div>
@@ -82,8 +80,8 @@
 
         </div>
         <!-- End: login-holder -->
-        
-        
+
+
     </body>
 </html>
 

@@ -4,110 +4,201 @@
  */
 package bean;
 
-import eb.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import eb.CustomersFacade;
+import eb.PaymentChargeFacade;
+import eb.Payments;
+import eb.PaymentsFacade;
+import eb.Rooms;
+import eb.RoomsFacade;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import entity.EPayments;
-import java.util.Collection;
 
 /**
  *
- * @author VietDuc
+ * @author DuMaster
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class PaymentBean {
+    @EJB
+    private PaymentChargeFacade paymentChargeFacade;
+    @EJB
+    private RoomsFacade roomsFacade;
+    @EJB
+    private CustomersFacade customersFacade;
+    @EJB
+    private PaymentsFacade paymentsFacade;
+    
+    public Integer PaymentID;
+    public Integer RoomID;
+    public Integer CustomerID;
+    public Double Payment;
+    public Date Paydate;
+    public Integer PayChargeID;
+    public Integer Status;
+    
+    public Rooms selectRooms;
 
-//    @EJB
-//    private PaymentsFacadeLocal paymentsFacade;
-//    @EJB
-//    private CustomerFacadeLocal customerFacade;
-//    @EJB
-//    private RoomsFacadeLocal roomsFacade;
-//    /** Creates a new instance of PaymentBean */
-//    private int roomID;
-//    List<EPayments> listPayments;
-//
-//    public PaymentBean() {
-//    }
-//    HttpSession httpSession;
-//    public int getRoom() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-//        httpSession = request.getSession(false);
-//        int room = Integer.parseInt(httpSession.getAttribute("rooms").toString());
-//        return room;
-//    }
-//
-//    public List<EPayments> getListPayments() {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-//        List<EPayments> list = new ArrayList<EPayments>();
-//        Collection<Payments> listP = paymentsFacade.getPaymentByRoom(getRoom());
-//        for (Payments payments : listP) {
-//            EPayments ep = new EPayments();
-//            ep.setPaymentID(payments.getPaymentID());
-//            ep.setRoomID(payments.getRoomID().getRoomId());
-//            ep.setCustomerID(payments.getCustomerID().getCustomerName());
-//            ep.setPayment(payments.getPayment());
-//            ep.setPaydate(dateFormat.format(payments.getPaydate()));
-//            ep.setPayCharge(payments.getPayChargeID().getChargename());
-//            String status = "";
-//            int stt = payments.getStatus();
-//            if (stt == 0) {
-//                status = "Not Payment";
-//            } else if (stt == 1) {
-//                status = "Payment";
-//            }
-//            ep.setStatus(status);
-//
-//            list.add(ep);
-//        }
-//        return list;
-//    }
-//
-//    public void setListPayments(List<EPayments> listPayments) {
-//        this.listPayments = listPayments;
-//    }
-//
-//    public int getRoomID() {
-//        return roomID;
-//    }
-//
-//    public void setRoomID(int roomID) {
-//        this.roomID = roomID;
-//    }
-//
-//    public void pay(int paymentId) {
-//        Payments p = paymentsFacade.find(paymentId);
-//        if (p.getStatus() == 0) {
-//            p.setPaydate(new Date());
-//            p.setStatus(1);
-//            paymentsFacade.edit(p);
-//        }
-//        int room = Integer.parseInt(httpSession.getAttribute("rooms").toString());
-//         int flag = 1;
-//         Collection<Payments> lr = roomsFacade.find(room).getPaymentsList();
-//         Rooms r = roomsFacade.find(room);
-//         for (Payments payments : lr) {
-//             if (payments.getStatus() == 0 ) {
-//                 flag = 0;
-//                 break;
-//             }
-//             flag = 1;
-//            
-//         }
-//         if (flag == 1) {
-//             r.setStatus(true);
-//             roomsFacade.edit(r);
-//         }
-//
-//    }
+    public Rooms getSelectRooms() {
+        return selectRooms;
+    }
+
+    public void setSelectRooms(Rooms selectRooms) {
+        this.selectRooms = selectRooms;
+    }
+    
+    public Integer CodeCustomer;
+    
+    public Payments pm ;
+
+    public Integer getCustomerID() {
+        return CustomerID;
+    }
+
+    public void setCustomerID(Integer CustomerID) {
+        this.CustomerID = CustomerID;
+    }
+
+    public Integer getPayChargeID() {
+        return PayChargeID;
+    }
+
+    public void setPayChargeID(Integer PayChargeID) {
+        this.PayChargeID = PayChargeID;
+    }
+
+    public Date getPaydate() {
+        return Paydate;
+    }
+
+    public void setPaydate(Date Paydate) {
+        this.Paydate = Paydate;
+    }
+
+    public Double getPayment() {
+        return Payment;
+    }
+
+    public void setPayment(Double Payment) {
+        this.Payment = Payment;
+    }
+
+    public Integer getPaymentID() {
+        return PaymentID;
+    }
+
+    public void setPaymentID(Integer PaymentID) {
+        this.PaymentID = PaymentID;
+    }
+
+    public Integer getRoomID() {
+        return RoomID;
+    }
+
+    public void setRoomID(Integer RoomID) {
+        this.RoomID = RoomID;
+    }
+
+    public Integer getStatus() {
+        return Status;
+    }
+
+    public void setStatus(Integer Status) {
+        this.Status = Status;
+    }
+
+    public PaymentBean(Integer PaymentID, Integer RoomID, Integer CustomerID, Double Payment, Date Paydate, Integer PayChargeID, Integer Status) {
+        this.PaymentID = PaymentID;
+        this.RoomID = RoomID;
+        this.CustomerID = CustomerID;
+        this.Payment = Payment;
+        this.Paydate = Paydate;
+        this.PayChargeID = PayChargeID;
+        this.Status = Status;
+    }
+    
+    
+    /** Creates a new instance of PaymentBean */
+    public PaymentBean() {
+    }
+    
+     // Load all Payments
+   
+    
+    public List<Payments> getListPaymentsType(){
+        return  paymentsFacade.getAllPaymentsDESC(CodeCustomer);
+    }
+    
+    
+    // update Payments
+    public void updatePayments(Integer id,Double payment) {
+        try {
+            
+            Payments pm = paymentsFacade.find(id);
+            pm.setPayment(payment);
+            paymentsFacade.edit(pm);
+            
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Payments.xhtml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    public void findPayments(int id) {
+        try 
+        {
+            Payments pm = paymentsFacade.find(id);
+            this.PaymentID = pm.getPaymentID();
+            this.CustomerID = pm.getCustomerID().getCustomerId();
+            this.PayChargeID = pm.getPayChargeID().getPayChargeID();
+            this.Paydate = pm.getPaydate();
+            this.RoomID = pm.getRoomID().getRoomId();
+            this.Status = pm.getStatus();
+            this.Payment = pm.getPayment();
+            
+
+            FacesContext.getCurrentInstance().getExternalContext().redirect("editPayments.xhtml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    
+    
+    public void inforPayment(Integer id) {
+        try 
+        {
+            this.CodeCustomer = id;
+            System.out.print("kq:"+id);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Payments.xhtml");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // xóa Payments
+    public void deletePayments(int idc) {
+        try {
+            Payments pm = paymentsFacade.find(idc);
+            pm.setStatus(1);
+            paymentsFacade.edit(pm);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Payments.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(PaymentBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }
+    
 }

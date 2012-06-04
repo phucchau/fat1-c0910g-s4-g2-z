@@ -31,4 +31,5 @@ public class RoomTypesFacade extends AbstractFacade<RoomTypes> {
     }
     
     
+    
 }

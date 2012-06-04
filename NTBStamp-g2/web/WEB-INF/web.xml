@@ -4,9 +4,81 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <filter>
+        <filter-name>adminfilter</filter-name>
+        <filter-class>filter.LoginFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>Accountfilter</filter-name>
+        <filter-class>filter.Accountfilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>ChargeTypeFilter</filter-name>
+        <filter-class>filter.ChargeTypeFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>CustomerFilter</filter-name>
+        <filter-class>filter.CustomerFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>LandTypeFilter</filter-name>
+        <filter-class>filter.LandTypeFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>LandsFilter</filter-name>
+        <filter-class>filter.LandsFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>PaymentChargeFilter</filter-name>
+        <filter-class>filter.PaymentChargeFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>RoomTypeFilter</filter-name>
+        <filter-class>filter.RoomTypeFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>RoomsFilter</filter-name>
+        <filter-class>filter.RoomsFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>adminfilter</filter-name>
+        <url-pattern>/faces/Admin/admin.xhtml</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Accountfilter</filter-name>
+        <url-pattern>/faces/Admin/Accounts/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ChargeTypeFilter</filter-name>
+        <url-pattern>/faces/Admin/ChargeType/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CustomerFilter</filter-name>
+        <url-pattern>/faces/Admin/Customer/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LandTypeFilter</filter-name>
+        <url-pattern>/faces/Admin/LandType/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>LandsFilter</filter-name>
+        <url-pattern>/faces/Admin/Lands/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>PaymentChargeFilter</filter-name>
+        <url-pattern>/faces/Admin/PaymentCharge/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RoomTypeFilter</filter-name>
+        <url-pattern>/faces/Admin/RoomType/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RoomsFilter</filter-name>
+        <url-pattern>/faces/Admin/Rooms/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>

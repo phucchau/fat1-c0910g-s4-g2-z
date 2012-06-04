@@ -1,21 +1,75 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+
+      >
+
     <body>
-        
+
         <ui:composition template="./../AdminTemplate.xhtml">
-            
+
             <ui:define name="queryandcss">
                 <link rel="stylesheet" href="../css/screen.css" type="text/css" media="screen" title="default" />
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h1>Management Buildings</h1>
+                <br/>
+                <h:form id="form">  
+                    <h2> <h:link outcome="insertbuildings" styleClass="button" value="Create Buildings" /></h2>
+                    <br/>
+                    <p:growl id="growl" showDetail="true"/>  
+
+                    <p:dataTable var="buildings" value="#{buildingsBean.listBuildingsALLs}" resizableColumns="true" id="basicTable">  
+
+                        <p:column headerText="building buildingId" style="width:200px" id="buildingId">  
+                            #{buildings.buildingId}  
+                        </p:column>  
+                        
+                        <p:column headerText="building Name" style="width:200px" id="buildingName">  
+                            #{buildings.buildingName}  
+                        </p:column>  
+
+                        <p:column headerText="Image" style="width:100px" id="image">  
+                            <h:graphicImage width="50px" url="../../ImageUser/#{buildings.image}" />
+                        </p:column>  
+
+                        <p:column headerText="Price" style="width:200px" id="Price">  
+                            <h:outputText value="#{buildings.price}" />  
+                        </p:column>  
+                        <p:column headerText="Lands Name" style="width:200px" id="CapGiay">  
+                            <h:outputText value="#{buildings.landName}" />  
+                        </p:column>  
+
+                        <p:column headerText="Total Floors" style="width:200px" id="totalFloors">  
+                            <h:outputText value="#{buildings.totalFloors}" />  
+                        </p:column>  
+
+                        <p:column headerText="Total Rooms" style="width:200px" id="totalRooms">  
+                            <h:outputText value="#{buildings.totalRooms}" />  
+                        </p:column>  
+
+                        <p:column style="width:400px">  
+                            <h:column id="actions" headerClass="headertext">
+                                <f:facet name="header">
+                                </f:facet>
+                                <p:commandButton  value="Edit" immediate="true" action="#{buildingsBean.findBuildings(buildings.buildingId)}"  />  
+                                <p:commandButton onclick="return confirm('Are you sure you want to delete?')" value="delete" action="#{buildingsBean.deleteBuildings(buildings.buildingId)}" />  
+
+                            </h:column>
+                        </p:column>  
+
+                    </p:dataTable>  
+
+                </h:form>  
             </ui:define>
 
         </ui:composition>
-        
+
     </body>
 </html>

@@ -43,12 +43,13 @@
                             <h:outputText value="#{customer.email}" />  
                         </p:column>  
 
-                        <p:column style="width:200px">  
+                        <p:column style="width:300px">  
                             <h:column id="actions" headerClass="headertext">
                                 <f:facet name="header">
                                 </f:facet>
                                 <p:commandButton  value="Edit" immediate="true" action="#{customersBean.findCustomer(customer.customerId)}"  />  
                                 <p:commandButton onclick="return confirm('Are you sure you want to delete?')" value="delete" action="#{customersBean.deleteCustomer(customer.customerId)}" />  
+                                <p:commandButton  value="Detail payment" immediate="true" action="#{paymentBean.inforPayment(customer.customerId)}"  />  
 
                             </h:column>
                         </p:column>  

@@ -71,9 +71,14 @@
                 <div id="nav-right">
 
                     <div class="nav-divider">&nbsp;</div>
-                    <div class="showhide-account"><img src="images/shared/nav/nav_myaccount.gif" width="93" height="14" alt="" /></div>
+                    <h:form>   
+                    <div class="showhide-account">
+                        <p> <a href="#" style="font-weight: bold;">Welcome : #{sessionScope.authenticate}</a></p>
+                    </div>
                     <div class="nav-divider">&nbsp;</div>
-                    <a href="" id="logout"><img src="images/shared/nav/nav_logout.gif" width="64" height="14" alt="" /></a>
+                    <h:commandLink value="logout" type="submit" style="color: white;margin-top: 17px;float: left;font-weight: bold;font-size: 12px;" action="#{accountsBean.logoutAccount()}" ></h:commandLink>
+                   
+                    </h:form>
                     <div class="clear">&nbsp;</div>
 
                     <!--  start account-content -->	
@@ -136,11 +141,7 @@
                                 <h:link outcome="/Admin/Rooms/rooms"><b>Rooms</b></h:link>
                             </li>
                         </ul>
-                        
-                        <div class="nav-divider">&nbsp;</div>
 
-                        
-                        
                         <div class="nav-divider">&nbsp;</div>
                         <ul class="select">
                             <li>

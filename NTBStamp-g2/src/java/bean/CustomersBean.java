@@ -6,6 +6,8 @@ package bean;
 
 import eb.Customers;
 import eb.CustomersFacade;
+import eb.Payments;
+import eb.PaymentsFacade;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +24,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class CustomersBean {
+    @EJB
+    private PaymentsFacade paymentsFacade;
     @EJB
     private CustomersFacade customersFacade;
 
@@ -174,12 +178,24 @@ public class CustomersBean {
 
     }
 
-    // xóa Customer
+    // delete Customer
     public void deleteCustomer(int idc) {
         try {
             Customers cus = customersFacade.find(idc);
+            
+            List<Payments> l = paymentsFacade.getAllPaymentsDESC(cus.getCustomerId());
+            
+            for (int i = 0; i < l.size(); i++) {
+            
+                Payments pm = paymentsFacade.find(l.get(i).getPaymentID());
+                pm.setStatus(1);
+                paymentsFacade.edit(pm);
+            
+            }
+            
             cus.setStatus(false);
             customersFacade.edit(cus);
+            
             FacesContext.getCurrentInstance().getExternalContext().redirect("customers.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(CustomersBean.class.getName()).log(Level.SEVERE, null, ex);

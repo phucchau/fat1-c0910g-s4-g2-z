@@ -5,7 +5,6 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
       >
 
     <body>
@@ -18,87 +17,70 @@
 
             <ui:define name="content">
                 <h3>
-                    <h:link outcome="Buildings" value="Back" styleClass="button"  />
+                    <h:link outcome="rooms" value="Back" styleClass="button"  />
                 </h3>
                 <h:form id="form" enctype="multipart/form-data"> 
                     <div class="CusdivRegis">
 
                         <p:panel id="panel" style="border: none;background: transparent;padding: 0px;margin: 0px;border: none;">  
-                            <table style="padding-left: 50px;font-size: 13px;" >
+                            <table style="padding-left: 50px;font-size: 13px;">
                                 <tbody>
                                     <tr style="padding-top: 5px;">
                                         <td colspan="3">
                                             <h3 style="font-size: 15px;">
-                                                Create Buildings
+                                                Create Room
                                             </h3>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="width: 150px;">
-                                           Building Name
-                                        </td>
-                                        <td>
-                                            <p:inputText id="buildingName" value="#{buildingsBean.buildingName}" >  
-                                                <f:validateLength minimum="5" maximum="200" />  
-                                                <p:ajax update="msgbuildingName" event="keyup" /> 
-                                            </p:inputText>
-                                        </td>
-                                        <td>
-                                            <p:message for="buildingName" id="msgbuildingName" display="icon"/>  
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 150px;">
-                                           Building Type
-                                        </td>
-                                        <td>
-                                            <p:inputText id="buildingType" value="#{buildingsBean.buildingType}" >  
-                                                <f:validateLength minimum="5" maximum="200" />  
-                                                <p:ajax update="msgbuildingType" event="keyup" /> 
-                                            </p:inputText>
-                                        </td>
-                                        <td>
-                                            <p:message for="buildingType" id="msgbuildingType" display="icon"/>  
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 150px;">
-                                          Total Floors
+                                           Room No
                                         </td>
                                         <td colspan="2">
-                                            <p:spinner id="totalFloors"   value="#{buildingsBean.totalFloors}"/>  
+                                            <p:spinner id="roomNo"   value="#{roomBean.roomNo}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="width: 150px;">
-                                          Total Rooms
+                                          Total Square
                                         </td>
                                         <td colspan="2">
-                                            <p:spinner id="totalRooms"   value="#{buildingsBean.totalRooms}"/>  
+                                            <p:spinner id="totalSquare"   value="#{roomBean.totalSquare}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td >
-                                            Price
+                                            Total Price
                                         </td>
                                         <td>
-                                            <p:inputText id="price" value="#{buildingsBean.price}" >  
+                                            <p:inputText id="totalPrice" value="#{roomBean.totalPrice}" >  
                                                 <f:validateLength minimum="1" />  
                                                 <p:ajax update="msgprice" event="keyup" /> 
                                             </p:inputText>
                                         </td>
                                         <td>
-                                            <p:message for="price" id="msgprice" display="icon"/>  
+                                            <p:message for="totalPrice" id="msgprice" display="icon"/>  
                                         </td>
                                     </tr>
                                     <tr>
                                         <td >
-                                            Lands
+                                            Type Room
                                         </td>
                                         <td colspan="2">
-                                            <p:selectOneMenu style="width: 300px;" value="#{buildingsBean.landId}" effect="fade" required="true" id="landId" >  
+                                            <p:selectOneMenu style="width: 300px;" value="#{roomBean.typeId}" effect="fade" required="true" id="typeId" >  
                                                 <f:selectItem itemLabel="-- Select One --" itemValue="" />  
-                                                <f:selectItems value="#{landsBean.landsItem}" />  
+                                                <f:selectItems value="#{roomTypeBean.roomTypeItem}" />  
+                                            </p:selectOneMenu>  
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            Building Name
+                                        </td>
+                                        <td colspan="2">
+                                            <p:selectOneMenu style="width: 300px;" value="#{roomBean.buildingId}" effect="fade" required="true" id="landId" >  
+                                                <f:selectItem itemLabel="-- Select One --" itemValue="" />  
+                                                <f:selectItems value="#{buildingsBean.buildingItem}" />  
                                             </p:selectOneMenu>  
                                         </td>
                                     </tr>
@@ -107,13 +89,16 @@
                                             Description
                                         </td>
                                         <td colspan="2">
-                                            <p:editor id="description" value="#{buildingsBean.description}" width="600"/>
+                                            <p:editor id="description" value="#{roomBean.description}" width="600"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td colspan="2">
-                                            <p:fileUpload fileUploadListener="#{buildingsBean.handleFileUpload}"  
+                                            <br/>
+                                            <h:graphicImage url="../../ImageUser/#{roomBean.image}" width="200px" />
+                                            <br/>
+                                            <p:fileUpload fileUploadListener="#{roomBean.handleFileUpload}"  
                                                           mode="advanced"  
                                                           update="messages"  
                                                           allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>  
@@ -121,10 +106,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td><h:inputHidden id="roomId" value="#{roomBean.roomId}" /></td>
                                         <td colspan="2">
                                             <p:commandButton value="Reset" type="reset" />  
-                                            <p:commandButton  value="Create" update="panel" actionListener="#{buildingsBean.createBuildings()}" /> 
+                                            <p:commandButton  value="Save" update="panel" actionListener="#{roomBean.updateRoom()}" /> 
                                         </td>
                                     </tr>
                                     <tr>

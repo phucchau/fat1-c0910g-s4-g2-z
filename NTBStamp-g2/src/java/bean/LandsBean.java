@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -383,5 +385,14 @@ public class LandsBean {
 
 
 
+    }
+    
+    public List<SelectItem> getLandsItem() {
+        List<SelectItem> rs = new LinkedList<SelectItem>();
+        List<Lands> lst = landsFacade.getAllLandsDESC();
+        for (Lands l : lst) {
+            rs.add(new SelectItem(l.getLandId(),l.getLandName()));
+        }
+        return rs;
     }
 }
