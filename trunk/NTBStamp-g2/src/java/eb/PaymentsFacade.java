@@ -4,6 +4,7 @@
  */
 package eb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,5 +25,10 @@ public class PaymentsFacade extends AbstractFacade<Payments> {
     public PaymentsFacade() {
         super(Payments.class);
     }
+    
+    public List<Payments> getAllPaymentsDESC(Integer id) {
+        return em.createQuery("SELECT p FROM Payments p WHERE p.customerID.customerId = :customerID and p.status = 0 ORDER BY p.paymentID DESC")
+                .setParameter("customerID", id).getResultList();
+    } 
     
 }

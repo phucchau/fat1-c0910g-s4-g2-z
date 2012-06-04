@@ -24,7 +24,7 @@
                     <div class="CusdivRegis">
 
                         <p:panel id="panel" style="border: none;background: transparent;padding: 0px;margin: 0px;border: none;">  
-                            <table style="padding-left: 50px;font-size: 13px;" >
+                            <table style="padding-left: 50px;font-size: 13px;">
                                 <tbody>
                                     <tr style="padding-top: 5px;">
                                         <td colspan="3">
@@ -35,7 +35,7 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 150px;">
-                                           Building Name
+                                            Building Name
                                         </td>
                                         <td>
                                             <p:inputText id="buildingName" value="#{buildingsBean.buildingName}" >  
@@ -49,7 +49,7 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 150px;">
-                                           Building Type
+                                            Building Type
                                         </td>
                                         <td>
                                             <p:inputText id="buildingType" value="#{buildingsBean.buildingType}" >  
@@ -63,7 +63,7 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 150px;">
-                                          Total Floors
+                                            Total Floors
                                         </td>
                                         <td colspan="2">
                                             <p:spinner id="totalFloors"   value="#{buildingsBean.totalFloors}"/>  
@@ -71,7 +71,7 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 150px;">
-                                          Total Rooms
+                                            Total Rooms
                                         </td>
                                         <td colspan="2">
                                             <p:spinner id="totalRooms"   value="#{buildingsBean.totalRooms}"/>  
@@ -113,6 +113,9 @@
                                     <tr>
                                         <td></td>
                                         <td colspan="2">
+                                            <br/>
+                                            <h:graphicImage url="../../ImageUser/#{buildingsBean.image}" width="200px" />
+                                            <br/>
                                             <p:fileUpload fileUploadListener="#{buildingsBean.handleFileUpload}"  
                                                           mode="advanced"  
                                                           update="messages"  
@@ -121,10 +124,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td></td>
+                                        <td><h:inputHidden id="buildingId" value="#{buildingsBean.buildingId}" /></td>
                                         <td colspan="2">
                                             <p:commandButton value="Reset" type="reset" />  
-                                            <p:commandButton  value="Create" update="panel" actionListener="#{buildingsBean.createBuildings()}" /> 
+                                            <p:commandButton  value="Save" update="panel" actionListener="#{buildingsBean.updateBuildings()}" /> 
                                         </td>
                                     </tr>
                                     <tr>
