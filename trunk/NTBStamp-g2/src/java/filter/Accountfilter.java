@@ -31,7 +31,7 @@ public class Accountfilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
 
-        if (session.getAttribute("authenticate") == "Admin") {
+        if (session.getAttribute("authenticate").equals("Admin")) {
             chain.doFilter(request, response);
         } else {
             HttpServletResponse res = (HttpServletResponse) response;

@@ -6,8 +6,10 @@ package bean;
 
 import eb.Accounts;
 import eb.AccountsFacade;
+import entity.SendMail;
 import java.io.IOException;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -26,6 +28,15 @@ public class LoginBean {
     private AccountsFacade accountsFacade;
     private String username = "Enter keywords...";
     private String password = "Enter keywords...";
+    private String tomail;
+
+    public String getTomail() {
+        return tomail;
+    }
+
+    public void setTomail(String tomail) {
+        this.tomail = tomail;
+    }
 
     public String getPassword() {
         return password;
@@ -90,5 +101,26 @@ public class LoginBean {
             FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml");
         }
 
+    }
+
+    // send mail 
+    public void sendPass() {
+        try {
+            String from = "dudv_a04525@fpt.aptech.ac.vn";
+            String to = tomail;
+            String subject = "you or someone has asked to retrieve your password";
+            Accounts ac = accountsFacade.getPassWord(tomail);
+            
+            String message = "UserName :" + ac.getUsername() + ", Password:"+ ac.getPassword();
+
+            SendMail sendMail = new SendMail(from, to, subject, message);
+            sendMail.send();
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Send sucessed, Please check Mail"));
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error , email does not exist Or  Error System"));
+        }
     }
 }
