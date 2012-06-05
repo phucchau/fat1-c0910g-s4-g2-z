@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      >
     <h:head>
         <title>Login</title>
         <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" title="default" />
@@ -61,16 +63,21 @@
                 <div id="forgotbox-text">Please send us your email and we'll reset your password.</div>
                 <!--  start forgot-inner -->
                 <div id="forgot-inner">
+                    <h:form>
                     <table border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <th>Email address:</th>
-                            <td><input type="text" value=""   class="login-inp" /></td>
+                            <td><h:inputText styleClass="login-inp" value="#{loginBean.tomail}" /></td>
                         </tr>
                         <tr>
-                            <th> </th>
-                            <td><input type="button" class="submit-login"  /></td>
+                            <th></th>
+                            <td><h:commandButton styleClass="submit-login" action="#{loginBean.sendPass()}"/></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2"> <p:messages id="msgs"/> </th>
                         </tr>
                     </table>
+                    </h:form>
                 </div>
                 <!--  end forgot-inner -->
                 <div class="clear"></div>

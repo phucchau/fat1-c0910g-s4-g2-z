@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -24,10 +25,10 @@ import javax.servlet.http.HttpSession;
 @ManagedBean
 @SessionScoped
 public class AccountsBean {
+
     @EJB
     private AccountsFacade accountsFacade;
-
-    public Accounts acc ;
+    public Accounts acc;
     public Integer accountId;
     public String accountName;
     public String username;
@@ -37,7 +38,7 @@ public class AccountsBean {
     public String Phone;
     public String address;
     public String accountrole;
-    public boolean  status;
+    public boolean status;
 
     public String getPhone() {
         return Phone;
@@ -118,88 +119,97 @@ public class AccountsBean {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     /** Creates a new instance of AccountsBean */
     public AccountsBean() {
     }
-    
-    public AccountsBean(Integer accountId,String accountName,String username,String password,String email,String Phone,String address,String accountrole,boolean  status){
-         this.accountId = accountId;
-         this.accountName = accountName;
-         this.username = username;
-         this.password = password;
-         this.email = email;
-         this.sex = sex;
-         this.Phone = Phone;
-         this.address = address;
-         this.accountrole = accountrole;
-         this.status = status;
-                 
+
+    public AccountsBean(Integer accountId, String accountName, String username, String password, String email, String Phone, String address, String accountrole, boolean status) {
+        this.accountId = accountId;
+        this.accountName = accountName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.sex = sex;
+        this.Phone = Phone;
+        this.address = address;
+        this.accountrole = accountrole;
+        this.status = status;
+
     }
-    
-    
-    
+
     // Load all account
-    
-    public List<Accounts> getListAccountType(){
-        return  accountsFacade.getAllAccountDESC();
+    public List<Accounts> getListAccountType() {
+        return accountsFacade.getAllAccountDESC();
     }
-    
+
     // create account
-    
     public void createAccountType() {
         try {
-            acc = new Accounts();
-            
-            acc.setAccountName(accountName);
-            acc.setUsername(username);
-            acc.setAccountrole(accountrole);
-            acc.setAddress(address);
-            acc.setEmail(email);
-            acc.setPassword(password);
-            acc.setPhone(Phone);
-            acc.setStatus(true);
-            
-            acc.setSex(sex);
-            
-            accountsFacade.create(acc);
-                       
-            
-            FacesContext.getCurrentInstance().getExternalContext().redirect("accounts.xhtml");
+
+            if (accountsFacade.getAccountbyUser(username) == null) {
+
+                if (accountsFacade.getPassWord(email) == null) {
+
+                    acc = new Accounts();
+
+                    acc.setAccountName(accountName);
+                    acc.setUsername(username);
+                    acc.setAccountrole(accountrole);
+                    acc.setAddress(address);
+                    acc.setEmail(email);
+                    acc.setPassword(password);
+                    acc.setPhone(Phone);
+                    acc.setStatus(true);
+
+                    acc.setSex(sex);
+
+                    accountsFacade.create(acc);
+
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("accounts.xhtml");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error , email exist Or  Error System"));
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error , UserName exist Or  Error System"));
+            }
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     // update account
     public void updateAccount() {
         try {
 
-            acc = new Accounts();
-            acc.setAccountId(accountId);
-            acc.setAccountName(accountName);
-            acc.setAccountrole(accountrole);
-            acc.setAddress(address);
-            acc.setEmail(email);
-            acc.setPassword(password);
-            acc.setPhone(Phone);
-            acc.setStatus(true);
-            acc.setUsername(username);
-            acc.setSex(sex);
             
-            accountsFacade.edit(acc);
-            FacesContext.getCurrentInstance().getExternalContext().redirect("accounts.xhtml");
+                    acc = new Accounts();
+                    acc.setAccountId(accountId);
+                    acc.setAccountName(accountName);
+                    acc.setAccountrole(accountrole);
+                    acc.setAddress(address);
+                    acc.setEmail(email);
+                    acc.setPassword(password);
+                    acc.setPhone(Phone);
+                    acc.setStatus(true);
+                    acc.setUsername(username);
+                    acc.setSex(sex);
+
+                    accountsFacade.edit(acc);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    
+
     public void findAccount(int id) {
         try {
             Accounts acc = accountsFacade.find(id);
-            this.Phone =acc.getPhone();
+            this.Phone = acc.getPhone();
             this.password = acc.getPassword();
             this.accountName = acc.getAccountName();
             this.address = acc.getAddress();
@@ -226,11 +236,11 @@ public class AccountsBean {
         } catch (IOException ex) {
             Logger.getLogger(AccountsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
 
     }
-    
+
     public void logoutAccount() throws IOException {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         session.setAttribute("authenticate", null);
@@ -249,6 +259,4 @@ public class AccountsBean {
         }
 
     }
-    
-    
 }
