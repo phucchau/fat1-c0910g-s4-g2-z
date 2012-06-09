@@ -30,7 +30,7 @@ public class CheckUserPay {
     @Resource
     TimerService timerService;
 
-    @Schedule(persistent = true, minute = "*", second = "*/5", hour = "*")
+    @Schedule(persistent = true, minute = "*", second = "*", hour = "12")
     public void excheckpayment() {
         try {
             List<Payments> pm = paymentsFacade.findAll();

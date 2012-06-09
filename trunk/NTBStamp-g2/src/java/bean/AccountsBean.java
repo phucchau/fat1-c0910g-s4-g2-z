@@ -143,10 +143,12 @@ public class AccountsBean {
     public void createAccountType() {
         try {
             md5 mh = new md5();
-            if (accountsFacade.getAccountbyUser(username).getAccountId()==0) {
-
-                if (accountsFacade.getPassWord(email).getAccountId()==0) {
-
+            if (accountsFacade.getAccountbyUser1(username)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error , UserName exist Or  Error System"));
+            } else {
+                if (accountsFacade.getEmail(email)) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error , email exist Or  Error System"));
+                } else {
                     acc = new Accounts();
 
                     acc.setAccountName(accountName);
@@ -165,21 +167,13 @@ public class AccountsBean {
                     this.Phone = "";
                     this.accountName = "";
                     this.username = "";
+                    this.email = "";
                     this.accountrole = "";
                     this.sex = "Male";
 
                     FacesContext.getCurrentInstance().getExternalContext().redirect("accounts.xhtml");
-
-
-                } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error , email exist Or  Error System"));
                 }
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error , UserName exist Or  Error System"));
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -205,14 +199,20 @@ public class AccountsBean {
                 acc.setSex(sex);
 
                 accountsFacade.edit(acc);
-                
-                 FacesContext.getCurrentInstance().getExternalContext().redirect("accounts.xhtml");
-                
-            }else
-            {
+
+                this.Phone = "";
+                this.accountName = "";
+                this.username = "";
+                this.email = "";
+                this.accountrole = "";
+                this.sex = "Male";
+
+                FacesContext.getCurrentInstance().getExternalContext().redirect("accounts.xhtml");
+
+            } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error ,old password is incorrect "));
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }

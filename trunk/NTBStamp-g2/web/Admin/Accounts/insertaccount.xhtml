@@ -117,11 +117,11 @@
                                             Account role
                                         </td>
                                         <td colspan="2">
-                                            <p:selectOneRadio id="Accountrole" value="#{accountsBean.accountrole}">  
+                                            <p:selectOneMenu id="accountrole" value="#{accountsBean.accountrole}" effect="fade" required="true" >  
                                                 <f:selectItem itemLabel="Admin" itemValue="Admin" />  
                                                 <f:selectItem itemLabel="Admin 1" itemValue="Admin1" />  
-                                                <f:selectItem itemLabel="Admin 2" itemValue="Admin2" />  
-                                            </p:selectOneRadio>  
+                                                <f:selectItem itemLabel="Admin 2" itemValue="Admin2" />    
+                                            </p:selectOneMenu> 
                                         </td>
                                     </tr>
                                     <tr>

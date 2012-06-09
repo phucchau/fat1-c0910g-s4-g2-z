@@ -36,14 +36,29 @@ public class RoomsFacade extends AbstractFacade<Rooms> {
     }
 
     public List<Rooms> getAllRoomLikebyName(String name) {
-        return em.createQuery("SELECT r FROM Rooms r WHERE r.roomNo LIKE '%"+name+"%' AND r.status = true ORDER BY r.roomId DESC").getResultList();
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.roomNo LIKE '%" + name + "%' AND r.status = true ORDER BY r.roomId DESC").getResultList();
     }
 
     public List<Rooms> getAllRoomsbyPrice(String price) {
-        return em.createQuery("SELECT r FROM Rooms r WHERE r.totalPrice "+price+" AND r.status = true ORDER BY r.roomId DESC").getResultList();
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.totalPrice " + price + " AND r.status = true ORDER BY r.roomId DESC").getResultList();
+    }
+
+    public List<Rooms> getAllRoomsbyNameandPrice(String name, String price) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.roomNo LIKE '%" + name + "%' AND r.totalPrice " + price + " AND r.status = true ORDER BY r.roomId DESC").getResultList();
+    }
+
+    public List<Rooms> getAllRoomsbySquare(String square) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.totalSquare " + square + " AND r.status = true ORDER BY r.roomId DESC").getResultList();
+    }
+
+    public List<Rooms> getAllRoomsbySquareandPrice(String square, String price) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.totalSquare " + square + " AND r.totalPrice " + price + " AND r.status = true ORDER BY r.roomId DESC").getResultList();
     }
     
-    public List<Rooms> getAllRoomsbyNameandPrice(String name,String price) {
-        return em.createQuery("SELECT r FROM Rooms r WHERE r.roomNo LIKE '%"+name+"%' AND r.totalPrice "+price+" AND r.status = true ORDER BY r.roomId DESC").getResultList();
+    public List<Rooms> getAllRoomsbyNameandSquare(String name, String square) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.roomNo LIKE '%" + name + "%' AND r.totalSquare " + square + " AND r.status = true ORDER BY r.roomId DESC").getResultList();
+    }
+    public List<Rooms> getAllRoomsbyNameandSquareandPrice(String name, String square,String price) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.roomNo LIKE '%" + name + "%' AND r.totalSquare " + square + " AND r.totalPrice " + price + " AND r.status = true ORDER BY r.roomId DESC").getResultList();
     }
 }
