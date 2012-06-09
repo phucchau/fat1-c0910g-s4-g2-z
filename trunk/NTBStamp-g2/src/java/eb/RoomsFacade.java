@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RoomsFacade extends AbstractFacade<Rooms> {
+
     @PersistenceContext(unitName = "NTBStamp-g2PU")
     private EntityManager em;
 
@@ -25,16 +26,24 @@ public class RoomsFacade extends AbstractFacade<Rooms> {
     public RoomsFacade() {
         super(Rooms.class);
     }
-    
+
     public List<Rooms> getAllRoomsDESC() {
         return em.createQuery("SELECT r FROM Rooms r WHERE r.status = true ORDER BY r.roomId DESC").getResultList();
     }
-    
-    public List<Rooms> getAllRoomsDESCbyIDBuilding(int id){
-        return  em.createQuery("SELECT r FROM Rooms r WHERE r.buildingId.buildingId = :id AND r.status = true ORDER BY r.roomId DESC").setParameter("id", id).getResultList();
+
+    public List<Rooms> getAllRoomsDESCbyIDBuilding(int id) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.buildingId.buildingId = :id AND r.status = true ORDER BY r.roomId DESC").setParameter("id", id).getResultList();
+    }
+
+    public List<Rooms> getAllRoomLikebyName(String name) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.roomNo LIKE '%"+name+"%' AND r.status = true ORDER BY r.roomId DESC").getResultList();
+    }
+
+    public List<Rooms> getAllRoomsbyPrice(String price) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.totalPrice "+price+" AND r.status = true ORDER BY r.roomId DESC").getResultList();
     }
     
-    public List<Rooms> getAllRoomLikebyName(String name){
-        return em.createQuery("SELECT r FROM Rooms r WHERE r.RoomNo LIKE :name AND r.status = true ORDER BY r.roomId DESC").setParameter("name", "'%" +name+"%'").getResultList();
+    public List<Rooms> getAllRoomsbyNameandPrice(String name,String price) {
+        return em.createQuery("SELECT r FROM Rooms r WHERE r.roomNo LIKE '%"+name+"%' AND r.totalPrice "+price+" AND r.status = true ORDER BY r.roomId DESC").getResultList();
     }
 }

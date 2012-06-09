@@ -261,6 +261,32 @@ a:hover{
 
 }
 
+#content #contentleft .item-content-search-left{
+    width: 640px;float: left;text-align: center;height: 200px;position: relative;
+}
+
+#content #contentleft .item-content-search-left:hover{
+    background:url("../image/bg1.jpg") repeat scroll 0 0 transparent;
+    box-shadow:1px 1px 1px #000;
+}
+
+#content #contentleft .item-content-search-left .title{
+    font-family: Bebas, Arial, sans-serif;	
+    font-size: 15px;
+    font-weight: bold;
+    color: #8c8c8c;
+    text-decoration: none;
+    display: inline-block;	
+    padding-top:0px;
+    margin-left: 2px;
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    text-shadow:1px 1px 1px #fff;
+    text-align: center;
+    width: 100%;
+}
+
 #content #contentleft .item-content-left{
     width: 320px;float: left;text-align: center;height: 335px;position: relative;
 }
@@ -347,7 +373,7 @@ a:hover{
 /*==== Customer Register =====*/
 
 .CusdivRegis{
-    width: 385px;min-height: 240px;
+    width: 390px;min-height: 240px;
     border: 1px solid white;
     background:url("../image/bg3.png") repeat top left;
     border-top-right-radius: 4px;

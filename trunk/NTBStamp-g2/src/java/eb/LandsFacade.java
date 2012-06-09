@@ -32,6 +32,14 @@ public class LandsFacade extends AbstractFacade<Lands> {
     }
     
     public List<Lands> getAllLandsLikebyName(String name) {
-        return  em.createQuery("SELECT l FROM Lands l Where l.landName LIKE :name AND l.status = true ORDER BY l.landId DESC").setParameter("name", "'%"+name+"%'").getResultList();
+        return  em.createQuery("SELECT l FROM Lands l Where l.landName LIKE '%"+name+"%' AND l.status = true ORDER BY l.landId DESC").getResultList();
+    }
+    
+    public List<Lands> getAllLandsbyPrice(String price){
+        return  em.createQuery("SELECT l FROM Lands l Where l.price "+price+" AND l.status = true ORDER BY l.landId DESC").getResultList();
+    }
+    
+     public List<Lands> getAllLandsbyNameandPrice(String name, String price){
+        return  em.createQuery("SELECT l FROM Lands l Where l.landName LIKE '%"+name+"%' AND l.price "+price+" AND l.status = true ORDER BY l.landId DESC").getResultList();
     }
 }

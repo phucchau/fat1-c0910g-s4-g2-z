@@ -41,13 +41,4 @@ public class BeanIndex {
         }
     }
     
-    public void goSearch() throws IOException{
-        Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String url = ((HttpServletRequest) request).getRequestURL().toString();
-        if (url.endsWith("index.xhtml")) {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("Home/search.xhtml");
-        } else {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("search.xhtml");
-        }
-    }
 }

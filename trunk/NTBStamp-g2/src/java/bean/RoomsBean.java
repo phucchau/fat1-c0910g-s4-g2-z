@@ -114,27 +114,32 @@ public class RoomsBean {
 
     public void registerCus() {
         try {
-            Date date = new Date();
-            Customers cus = new Customers();
-            cus.setCustomerName(Cusname);
-            cus.setSex(sex);
-            cus.setPhone(phone);
-            cus.setAddress(address);
-            cus.setEmail(email);
-            cus.setStatus(true);
-            customersFacade.create(cus);
-            Payments pay = new Payments();
-            pay.setPaydate(date);
-            pay.setStatus(0);
-            pay.setCustomerID(cus);
-            pay.setRoomID(r);
-            paymentsFacade.create(pay);
-            setCusname("");
-            setSex("Male");
-            setPhone("");
-            setAddress("");
-            setEmail("");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Register sucessed"));
+            if (paymentsFacade.checkRoomNo(r.getRoomId())) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Room have been set", " Room have been set !");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } else {
+                Date date = new Date();
+                Customers cus = new Customers();
+                cus.setCustomerName(Cusname);
+                cus.setSex(sex);
+                cus.setPhone(phone);
+                cus.setAddress(address);
+                cus.setEmail(email);
+                cus.setStatus(true);
+                customersFacade.create(cus);
+                Payments pay = new Payments();
+                pay.setPaydate(date);
+                pay.setStatus(0);
+                pay.setCustomerID(cus);
+                pay.setRoomID(r);
+                paymentsFacade.create(pay);
+                setCusname("");
+                setSex("Male");
+                setPhone("");
+                setAddress("");
+                setEmail("");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Register sucessed"));
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", " Have error !");

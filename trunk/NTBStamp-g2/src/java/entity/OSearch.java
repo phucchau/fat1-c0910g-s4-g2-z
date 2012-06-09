@@ -22,6 +22,16 @@ public class OSearch {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+     public String getSubDescription(){
+        Removetag rm = new Removetag();
+        String subdes = rm.StripAllTags(description);
+        if (subdes.length() >= 200) {
+            return subdes.substring(0,200)+" ...";
+        }else{
+            return subdes;
+        }
+    }
 
     public int getId() {
         return id;

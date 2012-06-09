@@ -31,7 +31,9 @@
                             #{customer.customerId}  
                         </p:column>   
 
-                        <p:column headerText="Name" style="width:200px" id="customerName">  
+                        <p:column id="customerName" filterBy="#{customer.customerName}"   
+                                  headerText="Name" footerText="Name"  style="width: 200px"
+                                  filterMatchMode="contains">  
                             <h:outputText value="#{customer.customerName}" />  
                         </p:column>  
 

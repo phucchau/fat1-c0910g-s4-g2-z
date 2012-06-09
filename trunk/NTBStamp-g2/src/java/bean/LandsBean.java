@@ -252,6 +252,9 @@ public class LandsBean {
             this.setAddress("");
             this.setNearBy("");
             this.setLandName("");
+            this.setDescription("");
+            this.setLandTypeID(0);
+            
 
             FacesContext.getCurrentInstance().getExternalContext().redirect("lands.xhtml");
         } catch (Exception e) {

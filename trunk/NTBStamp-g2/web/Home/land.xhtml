@@ -19,18 +19,18 @@
                 <table style="width: 640px;font-size: 14px;text-align: left;" class="title">
                     <tbody>
                         <tr>
-                            <td width="395px" style="vertical-align: top;">Near by : <h:outputText value="#{landsBean.l.nearBy}" style="color: #424242;font-size: 12px;"/>
+                            <td width="395px" style="vertical-align: top;">Near by : <h:outputText value="#{landsBean.l.nearBy}" escape="false" style="color: #424242;font-size: 12px;"/>
                             </td>
                             <td rowspan="5">
                                 <a href="../ImageUser/#{landsBean.l.image}" rel="lightbox" title="#{landsBean.l.landName}">
-                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{empty landsBean.l.image}"/>
-                                    <h:graphicImage url="../ImageUser/#{landsBean.l.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;" rendered="#{not empty landsBean.l.image}"/>
+                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{empty landsBean.l.image}"/>
+                                    <h:graphicImage url="../ImageUser/#{landsBean.l.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{not empty landsBean.l.image}"/>
                                 </a>
 
                             </td>
                         </tr>
                         <tr>
-                            <td style="vertical-align: top;">Address : <h:outputText value="#{landsBean.l.address}" style="color: #424242;font-size: 12px;"/>
+                            <td style="vertical-align: top;">Address : <h:outputText value="#{landsBean.l.address}" escape="false" style="color: #424242;font-size: 12px;"/>
                             </td>
                         </tr>
                         <tr>

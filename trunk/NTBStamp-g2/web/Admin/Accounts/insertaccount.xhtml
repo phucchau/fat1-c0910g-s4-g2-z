@@ -117,7 +117,11 @@
                                             Account role
                                         </td>
                                         <td colspan="2">
-                                            <p:editor id="accountrole" value="#{accountsBean.accountrole}" width="600"/>
+                                            <p:selectOneRadio id="Accountrole" value="#{accountsBean.accountrole}">  
+                                                <f:selectItem itemLabel="Admin" itemValue="Admin" />  
+                                                <f:selectItem itemLabel="Admin 1" itemValue="Admin1" />  
+                                                <f:selectItem itemLabel="Admin 2" itemValue="Admin2" />  
+                                            </p:selectOneRadio>  
                                         </td>
                                     </tr>
                                     <tr>

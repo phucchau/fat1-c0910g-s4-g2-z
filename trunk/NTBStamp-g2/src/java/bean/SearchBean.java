@@ -11,11 +11,16 @@ import eb.LandsFacade;
 import eb.Rooms;
 import eb.RoomsFacade;
 import entity.OSearch;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -32,7 +37,7 @@ public class SearchBean {
     @EJB
     private LandsFacade landsFacade;
     private ArrayList<OSearch> list;
-    private String choosetype = "none";
+    private String choosetype = "Lands";
     private String choosemoney = "none";
     private String ipname;
 
@@ -64,18 +69,16 @@ public class SearchBean {
         return ipname;
     }
 
-    public void setIpname(String ipname) {
-        this.ipname = ipname;
+    public void setIpname(String ipname) throws UnsupportedEncodingException {
+        this.ipname = new String(ipname.getBytes("ISO-8859-1"),"UTF-8");
     }
 
     /** Creates a new instance of SearchBean */
     public SearchBean() {
     }
 
-    public void processSearch() {
+    public void processSearch() throws IOException {
         list = new ArrayList<OSearch>();
-        if (choosetype.equals("none")) {
-        } else {
             if (choosetype.equals("Lands") && choosemoney.equals("none") && ipname.isEmpty()) {
                 process1();
             }
@@ -85,33 +88,39 @@ public class SearchBean {
             if (choosetype.equals("Rooms") && choosemoney.equals("none") && ipname.isEmpty()) {
                 process3();
             }
-            if (choosetype.equals("Lands") && choosemoney.equals("none") && ipname.trim().length() > 1) {
+            if (choosetype.equals("Lands") && choosemoney.equals("none") && ipname.trim().length() >= 1) {
                 process4();
             }
-            if (choosetype.equals("Buildings") && choosemoney.equals("none") && ipname.trim().length() > 1) {
+            if (choosetype.equals("Buildings") && choosemoney.equals("none") && ipname.trim().length() >= 1) {
                 process5();
             }
-            if (choosetype.equals("Rooms") && choosemoney.equals("none") && ipname.trim().length() > 1) {
+            if (choosetype.equals("Rooms") && choosemoney.equals("none") && ipname.trim().length() >= 1) {
                 process6();
             }
-            if (choosetype.equals("Lands") && choosemoney.equalsIgnoreCase("none") && ipname.isEmpty()) {
+            if (choosetype.equals("Lands") && !"none".equals(choosemoney) && ipname.isEmpty()) {
                 process7();
             }
-            if (choosetype.equals("Buildings") && choosemoney.equalsIgnoreCase("none") && ipname.isEmpty()) {
+            if (choosetype.equals("Buildings") && !"none".equals(choosemoney) && ipname.isEmpty()) {
                 process8();
             }
-            if (choosetype.equals("Rooms") && choosemoney.equalsIgnoreCase("none") && ipname.isEmpty()) {
+            if (choosetype.equals("Rooms") && !"none".equals(choosemoney) && ipname.isEmpty()) {
                 process9();
             }
-            if (choosetype.equals("Lands") && choosemoney.equalsIgnoreCase("none") && ipname.trim().length() > 1) {
+            if (choosetype.equals("Lands") && !"none".equals(choosemoney) && ipname.trim().length() >= 1) {
                 process10();
             }
-            if (choosetype.equals("Buildings") && choosemoney.equalsIgnoreCase("none") && ipname.trim().length() > 1) {
+            if (choosetype.equals("Buildings") && !"none".equals(choosemoney) && ipname.trim().length() >= 1) {
                 process11();
             }
-            if (choosetype.equals("Rooms") && choosemoney.equalsIgnoreCase("none") && ipname.trim().length() > 1) {
+            if (choosetype.equals("Rooms") && !"none".equals(choosemoney) && ipname.trim().length() >= 1) {
                 process12();
             }
+        Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String url = ((HttpServletRequest) request).getRequestURL().toString();
+        if (url.endsWith("index.xhtml")) {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("Home/search.xhtml");
+        } else {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("search.xhtml");
         }
     }
 
@@ -155,7 +164,8 @@ public class SearchBean {
     }
 
     public void process4() {
-         List<Lands> listland = landsFacade.getAllLandsLikebyName(ipname);
+        System.out.print(ipname);
+        List<Lands> listland = landsFacade.getAllLandsLikebyName(ipname);
         for (Lands lands : listland) {
             OSearch os = new OSearch();
             os.setId(lands.getLandId());
@@ -194,20 +204,80 @@ public class SearchBean {
     }
 
     public void process7() {
+        List<Lands> listland = landsFacade.getAllLandsbyPrice(choosemoney);
+        for (Lands lands : listland) {
+            OSearch os = new OSearch();
+            os.setId(lands.getLandId());
+            os.setTitle(lands.getLandName());
+            os.setImage(lands.getImage());
+            os.setDescription(lands.getDescription());
+            os.setType("lands");
+            list.add(os);
+        }
     }
 
     public void process8() {
+        List<Buildings> listbuild = buildingsFacade.getAllBuildingsbyPrice(choosemoney);
+        for (Buildings build : listbuild) {
+            OSearch os = new OSearch();
+            os.setId(build.getBuildingId());
+            os.setTitle(build.getBuildingName());
+            os.setImage(build.getImage());
+            os.setDescription(build.getDescription());
+            os.setType("building");
+            list.add(os);
+        }
     }
 
     public void process9() {
+        List<Rooms> listroom = roomsFacade.getAllRoomsbyPrice(choosemoney);
+        for (Rooms room : listroom) {
+            OSearch os = new OSearch();
+            os.setId(room.getRoomId());
+            os.setTitle(String.valueOf(room.getRoomNo()));
+            os.setImage(room.getImage());
+            os.setDescription(room.getDescription());
+            os.setType("room");
+            list.add(os);
+        }
     }
 
     public void process10() {
+        List<Lands> listland = landsFacade.getAllLandsbyNameandPrice(ipname, choosemoney);
+        for (Lands lands : listland) {
+            OSearch os = new OSearch();
+            os.setId(lands.getLandId());
+            os.setTitle(lands.getLandName());
+            os.setImage(lands.getImage());
+            os.setDescription(lands.getDescription());
+            os.setType("lands");
+            list.add(os);
+        }
     }
 
     public void process11() {
+        List<Buildings> listbuild = buildingsFacade.getAllBuildingsbyNameandPrice(ipname, choosemoney);
+        for (Buildings build : listbuild) {
+            OSearch os = new OSearch();
+            os.setId(build.getBuildingId());
+            os.setTitle(build.getBuildingName());
+            os.setImage(build.getImage());
+            os.setDescription(build.getDescription());
+            os.setType("building");
+            list.add(os);
+        }
     }
 
     public void process12() {
+        List<Rooms> listroom = roomsFacade.getAllRoomsbyNameandPrice(ipname, choosemoney);
+        for (Rooms room : listroom) {
+            OSearch os = new OSearch();
+            os.setId(room.getRoomId());
+            os.setTitle(String.valueOf(room.getRoomNo()));
+            os.setImage(room.getImage());
+            os.setDescription(room.getDescription());
+            os.setType("room");
+            list.add(os);
+        }
     }
 }

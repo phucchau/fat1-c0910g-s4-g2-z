@@ -6,6 +6,7 @@ package bean;
 
 import eb.Accounts;
 import eb.AccountsFacade;
+import entity.md5;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,6 +33,7 @@ public class AccountsBean {
     public Integer accountId;
     public String accountName;
     public String username;
+    public String oldpassword;
     public String password;
     public String email;
     public String sex = "Male";
@@ -120,22 +122,16 @@ public class AccountsBean {
         this.username = username;
     }
 
-    /** Creates a new instance of AccountsBean */
-    public AccountsBean() {
+    public String getOldpassword() {
+        return oldpassword;
     }
 
-    public AccountsBean(Integer accountId, String accountName, String username, String password, String email, String Phone, String address, String accountrole, boolean status) {
-        this.accountId = accountId;
-        this.accountName = accountName;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.sex = sex;
-        this.Phone = Phone;
-        this.address = address;
-        this.accountrole = accountrole;
-        this.status = status;
+    public void setOldpassword(String oldpassword) {
+        this.oldpassword = oldpassword;
+    }
 
+    /** Creates a new instance of AccountsBean */
+    public AccountsBean() {
     }
 
     // Load all account
@@ -146,10 +142,10 @@ public class AccountsBean {
     // create account
     public void createAccountType() {
         try {
+            md5 mh = new md5();
+            if (accountsFacade.getAccountbyUser(username).getAccountId()==0) {
 
-            if (accountsFacade.getAccountbyUser(username) == null) {
-
-                if (accountsFacade.getPassWord(email) == null) {
+                if (accountsFacade.getPassWord(email).getAccountId()==0) {
 
                     acc = new Accounts();
 
@@ -158,7 +154,7 @@ public class AccountsBean {
                     acc.setAccountrole(accountrole);
                     acc.setAddress(address);
                     acc.setEmail(email);
-                    acc.setPassword(password);
+                    acc.setPassword(new String(mh.encrypt(password)));
                     acc.setPhone(Phone);
                     acc.setStatus(true);
 
@@ -166,7 +162,15 @@ public class AccountsBean {
 
                     accountsFacade.create(acc);
 
+                    this.Phone = "";
+                    this.accountName = "";
+                    this.username = "";
+                    this.accountrole = "";
+                    this.sex = "Male";
+
                     FacesContext.getCurrentInstance().getExternalContext().redirect("accounts.xhtml");
+
+
                 } else {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error , email exist Or  Error System"));
                 }
@@ -185,21 +189,30 @@ public class AccountsBean {
     public void updateAccount() {
         try {
 
+            md5 mh = new md5();
+            acc = new Accounts();
+
+            if (oldpassword.equals(mh.decrypt(accountsFacade.getPassWordbyID(accountId).getPassword().getBytes()))) {
+                acc.setAccountId(accountId);
+                acc.setAccountName(accountName);
+                acc.setAccountrole(accountrole);
+                acc.setAddress(address);
+                acc.setEmail(email);
+                acc.setPassword(new String(mh.encrypt(password)));
+                acc.setPhone(Phone);
+                acc.setStatus(true);
+                acc.setUsername(username);
+                acc.setSex(sex);
+
+                accountsFacade.edit(acc);
+                
+                 FacesContext.getCurrentInstance().getExternalContext().redirect("accounts.xhtml");
+                
+            }else
+            {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error ,old password is incorrect "));
+            }
             
-                    acc = new Accounts();
-                    acc.setAccountId(accountId);
-                    acc.setAccountName(accountName);
-                    acc.setAccountrole(accountrole);
-                    acc.setAddress(address);
-                    acc.setEmail(email);
-                    acc.setPassword(password);
-                    acc.setPhone(Phone);
-                    acc.setStatus(true);
-                    acc.setUsername(username);
-                    acc.setSex(sex);
-
-                    accountsFacade.edit(acc);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -208,9 +221,11 @@ public class AccountsBean {
 
     public void findAccount(int id) {
         try {
+            md5 mh = new md5();
             Accounts acc = accountsFacade.find(id);
+            this.accountId = acc.getAccountId();
             this.Phone = acc.getPhone();
-            this.password = acc.getPassword();
+            this.password = mh.decrypt(acc.getPassword().getBytes());
             this.accountName = acc.getAccountName();
             this.address = acc.getAddress();
             this.sex = acc.getSex();

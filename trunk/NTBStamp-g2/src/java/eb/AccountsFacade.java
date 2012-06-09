@@ -52,4 +52,10 @@ public class AccountsFacade extends AbstractFacade<Accounts> {
                 (Accounts) em.createQuery("SELECT a FROM Accounts a WHERE a.email = :email AND a.status = true").setParameter("email", email).getSingleResult();
         return accounts;
     }
+    
+    public Accounts getPassWordbyID(Integer id) {
+        Accounts accounts =
+                (Accounts) em.createQuery("SELECT a FROM Accounts a WHERE a.accountId = :accountId AND a.status = true").setParameter("accountId", id).getSingleResult();
+        return accounts;
+    }
 }

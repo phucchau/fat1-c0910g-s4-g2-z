@@ -22,7 +22,7 @@ Create table Accounts
 
 go
 
-Insert into Accounts values('Truong','admin','123','iubaxanhatnha@yahoo.com','male','0983379149','Ha Noi','Admin',1)
+--Insert into Accounts values('Truong','admin','123','iubaxanhatnha@yahoo.com','male','0983379149','Ha Noi','Admin',1)
 
 go
 

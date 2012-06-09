@@ -1,20 +1,107 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <body>
 
         <ui:composition template="./Template.xhtml">
 
             <ui:define name="content-left">
-                 <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 2px;">
+                <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 2px;">
                     Search Result
                 </h3>
                 <p class="separator"/>
-                <p>#{searchBean.choosetype}</p>
-                <p>#{searchBean.choosemoney}</p>
-                <p>#{searchBean.ipname}</p>
+                <h:form>
+                    <p:dataGrid value="#{searchBean.list}" var="item" paginator="true" rows="12" columns="1" paginatorPosition="bottom" pageLinks="5" rendered="#{not empty searchBean.list}">
+                        <p:column> 
+                            <div class="item-content-search-left" style="height: 200px;">
+                                <h:commandLink action="#{landsBean.goLand()}" style="color: black;text-decoration: none;" rendered="#{item.type == 'lands'}">
+                                    <h3 class="title" style="text-align: left;">
+                                        <h:outputText value="#{item.title} " escape="false"/>
+                                        <h:outputText value="#{item.type}" escape="false" style="color: red;font-size: 12px;"/>
+                                        <f:param name="idLand" value="#{item.id}" />
+                                    </h3>
+                                    <p class="separator"/>
+                                    <table>
+                                        <tr>
+                                            <td style="width: 240px;">
+                                                <a href="../ImageUser/#{item.image}" rel="lightbox" title="#{item.image}" style="border: none;">
+                                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{empty item.image}"/>
+                                                    <h:graphicImage url="../ImageUser/#{item.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{not empty item.image}"/>
+                                                </a>
+                                            </td>
+                                            <td style="width:400px;vertical-align: top;">
+                                                <p class="description" style="color: black;font-weight: normal;font-size: 11px;padding-left: 10px;padding-right: 10xp;"><h:outputText value="#{item.subDescription}" rendered="#{not empty item.description}"/></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <p class="readmore">Read More</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </h:commandLink>
+                                <h:commandLink action="#{buildingsBean.goBuilding()}" style="color: black;text-decoration: none;" rendered="#{item.type == 'building'}">
+                                    <h3 class="title" style="text-align: left;">
+                                        <h:outputText value="#{item.title} " escape="false"/>
+                                        <h:outputText value="#{item.type}" escape="false" style="color: red;font-size: 12px;"/>
+                                        <f:param name="idBuilding" value="#{item.id}" />
+                                    </h3>
+                                    <p class="separator"/>
+                                    <table>
+                                        <tr>
+                                            <td style="width: 240px;">
+                                                <a href="../ImageUser/#{item.image}" rel="lightbox" title="#{item.image}">
+                                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{empty item.image}"/>
+                                                    <h:graphicImage url="../ImageUser/#{item.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{not empty item.image}"/>
+                                                </a>
+                                            </td>
+                                            <td style="width:400px;vertical-align: top;">
+                                                <p class="description" style="color: black;font-weight: normal;font-size: 11px;padding-left: 10px;padding-right: 10xp;"><h:outputText value="#{item.subDescription}" rendered="#{not empty item.description}"/></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <p class="readmore">Read More</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </h:commandLink>
+                                <h:commandLink action="#{roomsBean.goRoom()}" style="color: black;text-decoration: none;" rendered="#{item.type == 'room'}">
+                                    <h3 class="title" style="text-align: left;">
+                                        <h:outputText value="Room No : #{item.title} " escape="false"/>
+                                        <h:outputText value="#{item.type}" escape="false" style="color: red;font-size: 12px;"/>
+                                        <f:param name="idRoom" value="#{item.id}" />
+                                    </h3>
+                                    <p class="separator"/>
+                                    <table>
+                                        <tr>
+                                            <td style="width: 240px;">
+                                                <a href="../ImageUser/#{item.image}" rel="lightbox" title="#{item.image}">
+                                                    <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{empty item.image}"/>
+                                                    <h:graphicImage url="../ImageUser/#{item.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{not empty item.image}"/>
+                                                </a>
+                                            </td>
+                                            <td style="width:400px;vertical-align: top;">
+                                                <p class="description" style="color: black;font-weight: normal;font-size: 11px;padding-left: 10px;padding-right: 10xp;"><h:outputText value="#{item.subDescription}" rendered="#{not empty item.description}"/></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <p class="readmore">Read More</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </h:commandLink>
+                            </div>
+                        </p:column>
+                    </p:dataGrid>  
+                    <h:outputLabel value="No Result" rendered="#{empty searchBean.list}"/>
+                </h:form>
             </ui:define>
 
         </ui:composition>

@@ -47,6 +47,8 @@ public class BuildingsBean {
     @EJB
     private BuildingsFacade buildingsFacade;
 
+    
+    
     public BuildingsBean() {
     }
     public Integer BuildingId;
@@ -64,7 +66,7 @@ public class BuildingsBean {
     public String LandName;
     public BuildingsBean buil = null;
     public ArrayList<BuildingsBean> alb;
-
+    
     public Integer getBuildingId() {
         return BuildingId;
     }
@@ -184,6 +186,7 @@ public class BuildingsBean {
         this.LandName = LandName;
     }
 
+    
     // Load all Lands
     public ArrayList<BuildingsBean> getListBuildingsALLs() {
 
@@ -200,8 +203,9 @@ public class BuildingsBean {
             buil.setTotalRooms(l.get(i).getTotalRooms());
             buil.setImage(l.get(i).getImage());
             buil.setPrice(l.get(i).getPrice());
-            if (landsFacade.find(l.get(i).getBuildingId()) != null) {
-                buil.setLandName(landsFacade.find(l.get(i).getBuildingId()).getLandName());
+            if (landsFacade.find(l.get(i).getLandId().getLandId()) != null) {
+                buil.setLandName(landsFacade.find(l.get(i).getLandId().getLandId()).getLandName());
+                buil.setLandId(landsFacade.find(l.get(i).getLandId().getLandId()).getLandId());
             }
 
             alb.add(buil);

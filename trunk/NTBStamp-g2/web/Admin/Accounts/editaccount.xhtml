@@ -37,7 +37,7 @@
                                             Name Account	
                                         </td>
                                         <td>
-                                            <p:inputText id="accountname" value="#{accountsBean.accountName}" >  
+                                            <p:inputText id="accountname" value="#{accountsBean.accountName}" disabled="true" >  
                                                 <f:validateLength minimum="2" />  
                                                 <p:ajax update="msgAccount" event="keyup" /> 
                                             </p:inputText>
@@ -51,7 +51,7 @@
                                             Username: *
                                         </td>
                                         <td>
-                                            <p:inputText id="username" value="#{accountsBean.username}" required="true" label="Username">  
+                                            <p:inputText id="username" value="#{accountsBean.username}" required="true" label="Username" disabled="true" >  
                                                 <f:validateLength minimum="2" />  
                                                 <p:ajax update="msgusername" event="keyup" /> 
                                             </p:inputText>  
@@ -62,7 +62,21 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 150px;">
-                                            Password: *
+                                            old password :*
+                                        </td>
+                                        <td>
+                                            <p:password id="oldpassword" value="#{accountsBean.oldpassword}" required="true" label="oldpassword" feedback="true" >  
+                                                <f:validateLength minimum="5" />  
+                                                <p:ajax update="msgoldpassword" event="keyup" /> 
+                                            </p:password>  
+                                        </td>
+                                        <td>
+                                            <p:message for="oldpassword" id="msgoldpassword" display="icon"/>    
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">
+                                            New Password: *
                                         </td>
                                         <td>
                                             <p:password id="password" value="#{accountsBean.password}" required="true" label="Password" feedback="true" >  
@@ -117,7 +131,11 @@
                                             Account role
                                         </td>
                                         <td colspan="2">
-                                            <p:editor id="accountrole" value="#{accountsBean.accountrole}" width="600"/>
+                                            <p:selectOneRadio id="Accountrole" value="#{accountsBean.accountrole}">  
+                                                <f:selectItem itemLabel="Admin" itemValue="Admin" />  
+                                                <f:selectItem itemLabel="Admin 1" itemValue="Admin1" />  
+                                                <f:selectItem itemLabel="Admin 2" itemValue="Admin2" />  
+                                            </p:selectOneRadio>  
                                         </td>
                                     </tr>
                                     <tr>

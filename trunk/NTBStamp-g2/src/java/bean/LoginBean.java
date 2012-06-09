@@ -7,6 +7,7 @@ package bean;
 import eb.Accounts;
 import eb.AccountsFacade;
 import entity.SendMail;
+import entity.md5;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -58,7 +59,8 @@ public class LoginBean {
     public LoginBean() {
     }
 
-    public void checkLogin() throws IOException {
+    public void checkLogin() throws IOException, Exception {
+        md5 mh = new md5();
         Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String url = ((HttpServletRequest) request).getRequestURL().toString();
         if (username.trim().length() == 0 || password.trim().length() == 0) {
@@ -68,7 +70,7 @@ public class LoginBean {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("../login.xhtml");
             }
         } else {
-            if (accountsFacade.checkAccount(username, password)) {
+            if (accountsFacade.checkAccount(username, new String(mh.encrypt(password)))) {
                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 session.setAttribute("username", username);
                 Accounts ac = accountsFacade.getAccountbyUser(username);
@@ -106,12 +108,13 @@ public class LoginBean {
     // send mail 
     public void sendPass() {
         try {
+            md5 mh = new md5();
             String from = "dudv_a04525@fpt.aptech.ac.vn";
             String to = tomail;
             String subject = "you or someone has asked to retrieve your password";
             Accounts ac = accountsFacade.getPassWord(tomail);
             
-            String message = "UserName :" + ac.getUsername() + ", Password:"+ ac.getPassword();
+            String message = "UserName :" + ac.getUsername() + ", Password:"+ mh.decrypt(ac.getPassword().getBytes());
 
             SendMail sendMail = new SendMail(from, to, subject, message);
             sendMail.send();
