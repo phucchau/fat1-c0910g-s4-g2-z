@@ -70,7 +70,7 @@ public class ChargeTypeBean {
             c = new ChargeType();
             c.setCharge(Charge);
             chargeTypeFacade.create(c);
-
+            this.Charge="";
             FacesContext.getCurrentInstance().getExternalContext().redirect("chargetype.xhtml");
         } catch (Exception e) {
             e.printStackTrace();

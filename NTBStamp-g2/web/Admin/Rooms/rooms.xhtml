@@ -40,12 +40,18 @@
                          <p:column headerText="Total Square" style="width:200px" id="totalSquare">  
                             <h:outputText value="#{room.totalSquare}" />  
                         </p:column>  
+
                         <p:column headerText="Total Price" style="width:200px" id="totalPrice">  
                             <h:outputText value="#{room.totalPrice}" />  
                         </p:column>  
-                        <p:column headerText="building Name" style="width:200px" id="buildingName">  
+                        
+                        <p:column id="buildingName" filterBy="#{room.buildingId.buildingId}"   
+                                  headerText="building Name" footerText="exact"  
+                                  filterOptions="#{buildingsBean.buildingItem}"  
+                                  filterMatchMode="exact">  
                             <h:outputText value="#{room.buildingId.buildingName}" />  
                         </p:column>  
+                        
 
 
                         <p:column style="width:150px">  

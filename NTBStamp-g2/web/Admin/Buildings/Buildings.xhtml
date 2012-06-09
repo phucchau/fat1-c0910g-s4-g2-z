@@ -30,9 +30,11 @@
                         <p:column headerText="building buildingId" style="width:200px" id="buildingId">  
                             #{buildings.buildingId}  
                         </p:column>  
-                        
-                        <p:column headerText="building Name" style="width:200px" id="buildingName">  
-                            #{buildings.buildingName}  
+
+                        <p:column id="buildingName" filterBy="#{buildings.buildingName}"   
+                                  headerText="building Name" footerText="contains"  style="width: 200px"
+                                  filterMatchMode="contains">  
+                            <h:outputText value="#{buildings.buildingName}" />  
                         </p:column>  
 
                         <p:column headerText="Image" style="width:100px" id="image">  
@@ -41,8 +43,12 @@
 
                         <p:column headerText="Price" style="width:200px" id="Price">  
                             <h:outputText value="#{buildings.price}" />  
-                        </p:column>  
-                        <p:column headerText="Lands Name" style="width:200px" id="CapGiay">  
+                        </p:column> 
+
+                        <p:column id="landName" filterBy="#{buildings.landId}"   
+                                  headerText="Lands Name" footerText="exact"  
+                                  filterOptions="#{landsBean.landsItem}"  
+                                  filterMatchMode="exact">  
                             <h:outputText value="#{buildings.landName}" />  
                         </p:column>  
 

@@ -67,7 +67,7 @@ public class LandtypeBean {
             landt = new LandTypes();
             landt.setLandName(landName);
             landTypesFacade.create(landt);
-            
+            this.landName = "";
             
             
             FacesContext.getCurrentInstance().getExternalContext().redirect("landType.xhtml");
@@ -83,9 +83,9 @@ public class LandtypeBean {
             landt = new LandTypes();
             landt.setLandName(landName);
             landt.setLandTypeID(landTypeID);
-
             landTypesFacade.edit(landt);
-
+            
+            this.landName = "";
             FacesContext.getCurrentInstance().getExternalContext().redirect("landType.xhtml");
 
         } catch (Exception e) {

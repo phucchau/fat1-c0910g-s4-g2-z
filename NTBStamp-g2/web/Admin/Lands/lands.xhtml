@@ -20,27 +20,30 @@
             <ui:define name="content">
                 <h1>Management Lands</h1>
                 <br/>
-                <h:form id="form">  
+                <h:form id="form" prependId="false">  
                     <h2> <h:link outcome="insertlands" styleClass="button" value="Create lands" /></h2>
                     <br/>
                     <p:growl id="growl" showDetail="true"/>  
 
-                    <p:dataTable var="land" value="#{landsBean.listLandsALLs}" resizableColumns="true" id="basicTable">  
+                    <p:dataTable var="land" value="#{landsBean.listLandsALLs}" 
+                                 resizableColumns="true" id="basicTable">  
 
-                        <p:column headerText="Lands Name " style="width:200px" id="LandName">  
-                            #{land.landName}  
+                        <p:column id="LandName" filterBy="#{land.landName}"   
+                                  headerText="Lands Name " footerText="contains"  style="width: 200px"
+                                  filterMatchMode="contains">  
+                            <h:outputText value="#{land.landName}" />  
                         </p:column>  
 
                         <p:column headerText="Image" style="width:200px" id="Image">  
                             <h:graphicImage width="50px" url="../../ImageUser/#{land.image}" />
                         </p:column>  
 
-                        <p:column headerText="Price" style="width:200px" id="Price">  
+                        <p:column headerText="Price" style="width:200px" id="Price" sortBy="#{land.price}" >  
                             <h:outputText value="#{land.price}" />  
                         </p:column>  
                         <p:column headerText="Permit" style="width:200px" id="CapGiay">  
                             <!-- nếu land.document.docID > 0 -> dc cap giay roi  -->
-                            
+
                             <h:graphicImage url="/Admin/images/logo/true.png" rendered="#{not empty land.permit}" />
                             <h:graphicImage url="/Admin/images/logo/false.png" rendered="#{empty land.permit}" />
                         </p:column>  

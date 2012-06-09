@@ -35,13 +35,17 @@
                             <h:outputText value="#{account.username}" />  
                         </p:column>   
                         
-                        <p:column headerText="Account Name" style="width:200px">  
+                        <p:column id="accountName" filterBy="#{account.accountName}"   
+                                  headerText="Account Name " footerText="contains"  style="width: 200px"
+                                  filterMatchMode="contains">  
                             <h:outputText value="#{account.accountName}" />  
-                        </p:column>   
+                        </p:column>  
                         
-                        <p:column headerText="Email" style="width:200px">  
+                        <p:column id="email" filterBy="#{account.email}"   
+                                  headerText="Email" footerText="contains"  style="width: 200px"
+                                  filterMatchMode="contains">  
                             <h:outputText value="#{account.email}" />  
-                        </p:column>   
+                        </p:column>
                             
                         <p:column style="width:200px">  
 

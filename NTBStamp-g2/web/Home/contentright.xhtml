@@ -9,7 +9,6 @@
             <h3 class="title" style="font-size: 20px;text-align: left;padding: 0px;margin: 0px;">Search</h3>
             <p class="separator"/>
             <p:selectOneMenu value="#{searchBean.choosetype}" effect="fade" required="true" style="width:292px;margin-bottom: 5px;">  
-                <f:selectItem itemLabel="Choose" itemValue="none" /> 
                 <f:selectItem itemLabel="Lands" itemValue="Lands" /> 
                 <f:selectItem itemLabel="Buildings" itemValue="Buildings" /> 
                 <f:selectItem itemLabel="Rooms" itemValue="Rooms" /> 
@@ -24,9 +23,9 @@
                 <f:selectItem itemLabel="3 bil - 5 bil" itemValue="Between 3000000000 And 5000000000" /> 
                 <f:selectItem itemLabel="> 5 bil" itemValue="> 5000000000" />      
             </p:selectOneMenu> 
-            <p:inputText style="padding: 2px;width: 200px;margin-bottom: 2px;height: 20px;" value="#{searchBean.ipname}"/>
+            <p:inputText style="padding: 2px;width: 200px;margin-bottom: 2px;height: 20px;" value="#{searchBean.ipname}" />
             <div style="clear: both;"/>
-            <h:commandButton value="Search" styleClass="button" action="#{beanIndex.goSearch()}"/>
+            <h:commandButton value="Search" styleClass="button" action="#{searchBean.processSearch()}"/>
         </h:form>
     </div>
     <div class="space"/>
