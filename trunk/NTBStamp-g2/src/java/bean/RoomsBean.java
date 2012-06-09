@@ -11,6 +11,7 @@ import eb.PaymentsFacade;
 import eb.Rooms;
 import eb.RoomsFacade;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -118,7 +119,10 @@ public class RoomsBean {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Room have been set", " Room have been set !");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             } else {
-                Date date = new Date();
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DAY_OF_YEAR,3);
+                Date date = cal.getTime(); 
+                
                 Customers cus = new Customers();
                 cus.setCustomerName(Cusname);
                 cus.setSex(sex);
