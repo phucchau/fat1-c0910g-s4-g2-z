@@ -5,13 +5,14 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <div id="search">
-        <h:form>
+        <h:form id="formctright">
             <h3 class="title" style="font-size: 20px;text-align: left;padding: 0px;margin: 0px;">Search</h3>
             <p class="separator"/>
-            <p:selectOneMenu value="#{searchBean.choosetype}" effect="fade" required="true" style="width:292px;margin-bottom: 5px;">  
+            <p:selectOneMenu value="#{searchBean.choosetype}" effect="fade" required="true" style="width:292px;margin-bottom: 5px;" onchange="">  
                 <f:selectItem itemLabel="Lands" itemValue="Lands" /> 
                 <f:selectItem itemLabel="Buildings" itemValue="Buildings" /> 
-                <f:selectItem itemLabel="Rooms" itemValue="Rooms" /> 
+                <f:selectItem itemLabel="Flat" itemValue="Rooms" /> 
+                <p:ajax update="@form" process="@this"/>
             </p:selectOneMenu> 
             <p:selectOneMenu value="#{searchBean.choosemoney}" effect="fade" required="true" style="width:292px;margin-bottom: 5px;">  
                 <f:selectItem itemLabel="Choose money" itemValue="none" /> 
@@ -22,6 +23,13 @@
                 <f:selectItem itemLabel="2 bil - 3 bil" itemValue="Between 2000000000 And 3000000000" /> 
                 <f:selectItem itemLabel="3 bil - 5 bil" itemValue="Between 3000000000 And 5000000000" /> 
                 <f:selectItem itemLabel="> 5 bil" itemValue="> 5000000000" />      
+            </p:selectOneMenu> 
+            <p:selectOneMenu value="#{searchBean.choosesquare}" effect="fade" id="ssquare" required="true" style="width:292px;margin-bottom: 5px;" rendered="#{searchBean.choosetype == 'Rooms'}">  
+                <f:selectItem itemLabel="Choose Square" itemValue="none" /> 
+                <f:selectItem itemLabel="0 m2 - 100 m2" itemValue="Between 0 And 100" /> 
+                <f:selectItem itemLabel="100 m2 - 200 m2" itemValue="Between 100 And 200" /> 
+                <f:selectItem itemLabel="200 m2 - 500 m2" itemValue="Between 200 And 500" /> 
+                <f:selectItem itemLabel="> 500 m2" itemValue="> 500" /> 
             </p:selectOneMenu> 
             <p:inputText style="padding: 2px;width: 200px;margin-bottom: 2px;height: 20px;" value="#{searchBean.ipname}" />
             <div style="clear: both;"/>
@@ -88,10 +96,10 @@
                         </p:column>
                     </p:dataGrid> 
                 </p:tab>  
-                <p:tab title="Rooms">  
+                <p:tab title="Flat">  
                     <p:dataGrid value="#{roomsBean.allRoomsDESC}" var="room" paginator="true" rows="5" columns="1" paginatorPosition="bottom" rowsPerPageTemplate="5,10,15" pageLinks="3">  
                         <p:column> 
-                            + <h:commandLink action="#{roomsBean.goRoom()}" style="color: black;">(#{room.buildingId.buildingName}) Room No : #{room.roomNo}
+                            + <h:commandLink action="#{roomsBean.goRoom()}" style="color: black;">(#{room.buildingId.buildingName}) Flat No : #{room.roomNo}
                                 <f:param name="idRoom" value="#{room.roomId}" />
                             </h:commandLink>
                         </p:column>

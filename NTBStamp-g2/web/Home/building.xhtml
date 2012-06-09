@@ -30,7 +30,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="vertical-align: top;">Total Rooms : <h:outputText value="#{buildingsBean.b.totalRooms}" style="color: #424242;font-size: 12px;" rendered="#{not empty buildingsBean.b.totalRooms}"/>
+                            <td style="vertical-align: top;">Total Flats : <h:outputText value="#{buildingsBean.b.totalRooms}" style="color: #424242;font-size: 12px;" rendered="#{not empty buildingsBean.b.totalRooms}"/>
                             </td>
                         </tr>
                         <tr>
@@ -63,7 +63,7 @@
                         <tr>
                             <td colspan="2">
                                 <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 30px;">
-                                    Rooms
+                                    Flats
                                 </h3>
                                 <p class="separator"/>
                                 <h:form>
@@ -72,7 +72,7 @@
                                             <div class="item-content-left" style="height: 290px;">
                                                 <h:commandLink action="#{roomsBean.goRoom()}" style="color: black;text-decoration: none;">
                                                     <div class="space" style="height:  10px;"/>
-                                                    <h:outputText value="Room No : " escape="false" style="color: #424242;font-size: 12px; "/>
+                                                    <h:outputText value="Flat No : " escape="false" style="color: #424242;font-size: 12px; "/>
                                                     <h:outputText value="#{room.roomNo}" escape="false" style="color: red;font-size: 11px;"/>
                                                     <div class="space" style="height:  3px;"/>
                                                     <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" styleClass="image" rendered="#{empty room.image}"/>

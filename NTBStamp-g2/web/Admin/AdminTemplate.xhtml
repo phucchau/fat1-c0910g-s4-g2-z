@@ -49,7 +49,7 @@
                     <div class="nav-divider">&nbsp;</div>
                     <h:form>   
                     <div class="showhide-account">
-                        <p> <a href="#" style="font-weight: bold;">Welcome : #{sessionScope.authenticate}</a></p>
+                        <p> <a href="#" style="font-weight: bold;">Welcome : #{sessionScope.username}</a></p>
                     </div>
                     <div class="nav-divider">&nbsp;</div>
                     <h:commandLink value="logout" type="submit" style="color: white;margin-top: 17px;float: left;font-weight: bold;font-size: 12px;" action="#{accountsBean.logoutAccount()}" ></h:commandLink>
@@ -114,7 +114,7 @@
                         <ul class="select">
                             
                             <li>
-                                <h:link outcome="/Admin/Rooms/rooms"><b>Rooms</b></h:link>
+                                <h:link outcome="/Admin/Rooms/rooms"><b>Flat</b></h:link>
                             </li>
                         </ul>
 
@@ -135,7 +135,7 @@
                         <ul class="select">
                             
                             <li>
-                                <h:link outcome="/Admin/RoomType/RoomType"><b>RoomType</b></h:link>
+                                <h:link outcome="/Admin/RoomType/RoomType"><b>Flat Type</b></h:link>
                             </li>
                         </ul>
 

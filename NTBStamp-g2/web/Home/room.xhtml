@@ -11,7 +11,7 @@
         <ui:composition template="./Template.xhtml">
             <ui:define name="content-left">
                 <h3 class="title" style="font-size: 18px;text-align: left;padding: 0px;margin: 0px;margin-top: 2px;">
-                    <h:outputText value="Room No : #{roomsBean.r.roomNo} " escape="false"/>
+                    <h:outputText value="Flat No : #{roomsBean.r.roomNo} " escape="false"/>
                     <h:outputText value="#{roomsBean.r.typeId.typeName}" escape="false" style="color: red;font-size: 12px;"/>
                 </h3>
                 <p class="separator"/>
@@ -19,12 +19,12 @@
                     <tbody>
                         <tr>
                             <td style="vertical-align: top;width: 245px;height: 120px;">
-                                <a href="../ImageUser/#{roomsBean.r.image}" rel="lightbox" title="Room No : #{roomsBean.r.roomNo}">
+                                <a href="../ImageUser/#{roomsBean.r.image}" rel="lightbox" title="Flat No : #{roomsBean.r.roomNo}">
                                     <h:graphicImage url="Resource/image/600px-No_image_available.svg.png" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{empty roomsBean.r.image}"/>
                                     <h:graphicImage url="../ImageUser/#{roomsBean.r.image}" style="width: 230px;height: 100px;padding: 5px;background-color: white;border: none;" rendered="#{not empty roomsBean.r.image}"/>
                                 </a>
                             </td>
-                            <td rowspan="3">
+                            <td rowspan="4">
 
                                 <h:form id="form" >
                                     <p:panel id="panel" style="background: transparent;padding: 0px;margin: 0px;border: none;" rendered="#{not empty roomsBean.r}">  
@@ -34,7 +34,7 @@
                                                     <tr>
                                                         <td colspan="3">
                                                             <h3 style="font-size: 15px;">
-                                                                Register Room
+                                                                Register Flat
                                                             </h3>
                                                         </td>
                                                     </tr>
@@ -132,9 +132,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="vertical-align: top;">Total Price : <h:outputText value="#{roomsBean.r.totalPrice}" style="color: #424242;font-size: 12px;" rendered="#{not empty roomsBean.r.totalPrice}">
+                            <td style="vertical-align: top;height: 15px;">Total Price : <h:outputText value="#{roomsBean.r.totalPrice}" style="color: #424242;font-size: 12px;" rendered="#{not empty roomsBean.r.totalPrice}">
                                     <f:convertNumber currencyCode="USD" type="currency" />
                                 </h:outputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;">Price / m2 : <h:outputText value="#{roomsBean.r.totalPrice / roomsBean.r.totalSquare}" style="color: #424242;font-size: 12px;" rendered="#{not empty roomsBean.r.totalPrice}">
+                                    <f:convertNumber currencyCode="USD" type="currency" />
+                                </h:outputText>  / m2
                             </td>
                         </tr>
                         <tr>
